@@ -55,17 +55,29 @@
                 <svg class="h-10 w-10 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
-                <a href="#" class="text-2xl font-bold text-gray-800">Percetakan <span class="text-blue-600">Arjuna</span></a>
+                <a href="#" class="text-xl md:text-2xl font-bold text-gray-800">Percetakan <span class="text-blue-600">Arjuna</span></a>
             </div>
-            <div class="hidden md:flex space-x-8">
+            <!-- Navigasi Desktop -->
+            <div class="hidden md:flex items-center space-x-8">
                 <a href="#produk" class="text-gray-600 hover:text-blue-600">Produk</a>
                 <a href="#tentang" class="text-gray-600 hover:text-blue-600">Tentang Kami</a>
                 <a href="#kontak" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Hubungi Kami</a>
             </div>
+            <!-- Tombol Menu Mobile -->
             <div class="md:hidden">
-                <!-- Mobile menu button can be added here -->
+                <button id="menu-btn" class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
             </div>
         </nav>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#produk" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Produk</a>
+            <a href="#tentang" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Tentang Kami</a>
+            <a href="#kontak" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Hubungi Kami</a>
+        </div>
     </header>
 
     <main>
@@ -304,15 +316,17 @@
                 <p class="mt-4 text-lg text-blue-100 max-w-3xl mx-auto">
                     Kemasan bukan hanya pembungkus, tapi cerminan kualitas brand Anda. Jangan biarkan produk hebat Anda tampil biasa saja. Tim kami siap membantu Anda membuat desain yang menarik perhatian dan meningkatkan penjualan.
                 </p>
-                <p class="mt-6 font-semibold text-xl">
-                    Hubungi kami sekarang untuk konsultasi gratis!
-                </p>
-                <div class="mt-8">
-                    <a href="https://wa.me/6282226903074?text=Halo%20Percetakan%20Arjuna,%20saya%20ingin%20konsultasi%20mengenai%20cetak%20kemasan%20untuk%20bisnis%20saya." target="_blank" class="cta-button bg-white text-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100">
-                        Chat Sekarang via WhatsApp
-                    </a>
+                <div class="mt-10">
+                    <p class="text-xl font-semibold text-white">
+                        Hubungi kami sekarang untuk konsultasi gratis!
+                    </p>
+                    <div class="mt-6">
+                        <a href="https://wa.me/6282226903074?text=Halo%20Percetakan%20Arjuna,%20saya%20ingin%20konsultasi%20mengenai%20cetak%20kemasan%20untuk%20bisnis%20saya." target="_blank" class="cta-button inline-block bg-white text-blue-600 px-8 sm:px-10 py-3 sm:py-4 rounded-full font-bold text-lg hover:bg-gray-100">
+                            Chat Sekarang via WhatsApp
+                        </a>
+                    </div>
+                    <p class="mt-3 text-sm text-blue-200">Klik untuk langsung terhubung dengan tim kami.</p>
                 </div>
-                <p class="mt-4 text-sm text-blue-200">Klik untuk langsung terhubung dengan tim kami.</p>
             </div>
         </section>
 
@@ -370,10 +384,15 @@
     </a>
 
     <script>
-        // Get the button
-        var mybutton = document.getElementById("to-top-button");
+        // Script untuk Menu Mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-        // When the user scrolls down 100px from the top of the document, show the button
+        // Script untuk Tombol Scroll to Top
+        var mybutton = document.getElementById("to-top-button");
         window.onscroll = function() {
             scrollFunction();
         };
@@ -385,8 +404,6 @@
                 mybutton.classList.add("hidden");
             }
         }
-
-        // When the user clicks on the button, scroll to the top of the document
         mybutton.addEventListener("click", function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
