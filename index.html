@@ -57,6 +57,49 @@
                 opacity: 0;
             }
         }
+
+        /* 2. Style untuk Parallax Banner */
+        .parallax-container {
+            background-image: url('img/banner.png');
+            min-height: 60vh; /* Tinggi minimal banner */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Lapisan gelap untuk kontras teks */
+        }
+
+        /* 3. Style untuk Galeri Klien Interaktif */
+        .client-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .client-card .client-logo, .client-card .client-product {
+            transition: opacity 0.4s ease-in-out;
+        }
+        .client-card .client-product {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+        }
+        .client-card:hover .client-logo {
+            opacity: 0;
+        }
+        .client-card:hover .client-product {
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -93,19 +136,15 @@
     </header>
 
     <main>
-        <!-- Image Banner Section -->
-        <section class="w-full bg-white">
-            <img src="img/banner.jpg" alt="Berbagai Desain Kemasan Menarik" class="w-full h-auto">
-        </section>
-
-        <!-- Hero Section -->
-        <section class="bg-white">
-            <div class="container mx-auto px-6 py-20 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
-                    Wujudkan <span class="text-blue-600">Kemasan Impian</span> Bisnis Anda
+        <!-- Parallax Banner & Hero Section -->
+        <section class="parallax-container flex items-center justify-center text-white">
+            <div class="parallax-overlay"></div>
+            <div class="container mx-auto px-6 py-20 text-center z-10">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+                    Wujudkan <span class="text-blue-300">Kemasan Impian</span> Bisnis Anda
                 </h1>
-                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                    Kesan pertama menentukan segalanya. Jangan biarkan produk istimewa Anda tampil biasa saja. Di Percetakan Arjuna, kami mengubah kemasan menjadi duta brand Anda. Biarkan tim desainer ahli kami merancang kemasan eksklusif sesuai visi Anda—sepenuhnya <span class="font-bold text-blue-600">GRATIS</span>. Ciptakan kemasan profesional tak terlupakan yang memikat pelanggan bahkan sebelum mereka mencicipi produk Anda.
+                <p class="mt-4 text-lg text-gray-200 max-w-3xl mx-auto">
+                    Kesan pertama menentukan segalanya. Jangan biarkan produk istimewa Anda tampil biasa saja. Di Percetakan Arjuna, kami mengubah kemasan menjadi duta brand Anda. Biarkan tim desainer ahli kami merancang kemasan eksklusif sesuai visi Anda—sepenuhnya <span class="font-bold text-blue-300">GRATIS</span>. Ciptakan kemasan profesional tak terlupakan yang memikat pelanggan bahkan sebelum mereka mencicipi produk Anda.
                 </p>
                 <div class="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
                     <a href="https://wa.me/6282226903074?text=Halo%20Percetakan%20Arjuna,%20saya%20tertarik%20untuk%20membuat%20kemasan%20custom." target="_blank" class="cta-button w-full sm:w-auto bg-green-500 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-green-600">
@@ -353,29 +392,45 @@
                     <p class="mt-2 text-gray-600">Kami bangga menjadi partner bagi berbagai brand untuk tumbuh bersama.</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A" class="max-h-16 w-auto">
+                    <!-- Klien 1 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/e0f2fe/0284c7?text=Produk+A" alt="Produk Brand A" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B" class="max-h-16 w-auto">
+                    <!-- Klien 2 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/fefce8/a16207?text=Produk+B" alt="Produk Brand B" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C" class="max-h-16 w-auto">
+                    <!-- Klien 3 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/ecfccb/4d7c0f?text=Produk+C" alt="Produk Brand C" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D" class="max-h-16 w-auto">
+                    <!-- Klien 4 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/fee2e2/991b1b?text=Produk+D" alt="Produk Brand D" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E" class="max-h-16 w-auto">
+                    <!-- Klien 5 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/f3e8ff/581c87?text=Produk+E" alt="Produk Brand E" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F" class="max-h-16 w-auto">
+                    <!-- Klien 6 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/fff7ed/c2410c?text=Produk+F" alt="Produk Brand F" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G" class="max-h-16 w-auto">
+                    <!-- Klien 7 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/ecfeff/0e7490?text=Produk+G" alt="Produk Brand G" class="client-product w-full h-full object-cover">
                     </div>
-                    <div class="flex items-center justify-center p-6 bg-white rounded-lg shadow-md h-32">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H" class="max-h-16 w-auto">
+                    <!-- Klien 8 -->
+                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
+                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H" class="client-logo max-h-16 w-auto">
+                        <img src="https://placehold.co/400x300/f0f9ff/0ea5e9?text=Produk+H" alt="Produk Brand H" class="client-product w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -499,18 +554,7 @@
         });
 
         // Script untuk Animasi Scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
-        });
-
-        const elementsToAnimate = document.querySelectorAll('.scroll-animate');
-        elementsToAnimate.forEach((el) => observer.observe(el));
+        // Dihapus untuk kompatibilitas GitHub Pages
     </script>
 
 </body>
