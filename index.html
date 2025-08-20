@@ -30,11 +30,11 @@
         .cta-button {
             position: relative; /* Diperlukan untuk efek ripple */
             overflow: hidden;   /* Diperlukan untuk efek ripple */
-            transition: all 0.3s ease;
+            transition: all 0.6s ease;
         }
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.20);
         }
         #to-top-button {
             transition: opacity 0.3s, visibility 0.3s;
@@ -46,9 +46,9 @@
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.9);
             transform: scale(0);
-            animation: ripple-animation 0.6s linear;
+            animation: ripple-animation 0.8s linear;
         }
 
         @keyframes ripple-animation {
@@ -64,7 +64,7 @@
             overflow: hidden;
         }
         .client-card .client-logo, .client-card .client-product {
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.6s ease-in-out;
         }
         .client-card .client-product {
             position: absolute;
