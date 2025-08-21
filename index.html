@@ -30,11 +30,11 @@
         .cta-button {
             position: relative; /* Diperlukan untuk efek ripple */
             overflow: hidden;   /* Diperlukan untuk efek ripple */
-            transition: all 0.6s ease;
+            transition: all 0.3s ease;
         }
         .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.20);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
         #to-top-button {
             transition: opacity 0.3s, visibility 0.3s;
@@ -46,9 +46,9 @@
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.7);
             transform: scale(0);
-            animation: ripple-animation 0.8s linear;
+            animation: ripple-animation 0.6s linear;
         }
 
         @keyframes ripple-animation {
@@ -64,7 +64,7 @@
             overflow: hidden;
         }
         .client-card .client-logo, .client-card .client-product {
-            transition: opacity 0.6s ease-in-out;
+            transition: opacity 0.4s ease-in-out;
         }
         .client-card .client-product {
             position: absolute;
@@ -119,7 +119,7 @@
     <main>
         <!-- Image Banner Section -->
         <section class="w-full bg-white">
-            <img src="img/banner.jpg" alt="Berbagai Desain Kemasan Menarik" class="w-full h-auto">
+            <img src="img/banner.png" alt="Berbagai Desain Kemasan Menarik" class="w-full h-auto">
         </section>
 
         <!-- Hero Section -->
@@ -203,110 +203,110 @@
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
                     <!-- Card Produk 1 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Paper+Lunch+Box" alt="Paper Lunch Box" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Paper+Lunch+Box" alt="Paper Lunch Box" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Paper Lunch Box</h4>
                         </div>
                     </div>
                     <!-- Card Produk 2 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Rice+Paper+Box" alt="Rice Paper Box" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Rice+Paper+Box" alt="Rice Paper Box" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Rice Paper Box</h4>
                         </div>
                     </div>
                     <!-- Card Produk 3 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Sate" alt="Dus Sate" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Sate" alt="Dus Sate" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Sate</h4>
                         </div>
                     </div>
                     <!-- Card Produk 4 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Corndog" alt="Dus Corndog" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Corndog" alt="Dus Corndog" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Corndog</h4>
                         </div>
                     </div>
                     <!-- Card Produk 5 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+18x18" alt="Dus 18x18" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+18x18" alt="Dus 18x18" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus 18x18</h4>
                         </div>
                     </div>
                     <!-- Card Produk 6 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+20x20" alt="Dus 20x20" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+20x20" alt="Dus 20x20" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus 20x20</h4>
                         </div>
                     </div>
                     <!-- Card Produk 7 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Donat" alt="Dus Donat" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Donat" alt="Dus Donat" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Donat</h4>
                         </div>
                     </div>
                     <!-- Card Produk 8 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Martabak" alt="Dus Martabak" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Martabak" alt="Dus Martabak" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Martabak</h4>
                         </div>
                     </div>
                      <!-- Card Produk 9 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Roti+Bakar" alt="Dus Roti Bakar" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Roti+Bakar" alt="Dus Roti Bakar" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Roti Bakar</h4>
                         </div>
                     </div>
                      <!-- Card Produk 10 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Burger" alt="Dus Burger" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Burger" alt="Dus Burger" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Burger</h4>
                         </div>
                     </div>
                      <!-- Card Produk 11 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+Kebab" alt="Dus Kebab" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Kebab" alt="Dus Kebab" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus Kebab</h4>
                         </div>
                     </div>
                      <!-- Card Produk 12 -->
-                    <div class="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                        <div class="flex-shrink-0">
-                            <img src="https://placehold.co/400x300/e2e8f0/334155?text=Dus+FNB" alt="Dus FNB" class="w-full h-36 object-cover">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                        <div class="aspect-square">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+FNB" alt="Dus FNB" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-4 flex-1 flex items-center justify-center">
+                        <div class="p-4">
                             <h4 class="font-semibold text-center text-gray-700">Dus F&B Lainnya</h4>
                         </div>
                     </div>
@@ -378,44 +378,60 @@
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
                     <!-- Klien 1 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/e0f2fe/0284c7?text=Produk+A" alt="Produk Brand A" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/e0f2fe/0284c7?text=Produk+A" alt="Produk Brand A" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 2 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/fefce8/a16207?text=Produk+B" alt="Produk Brand B" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B" alt="Produk Brand B" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 3 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/ecfccb/4d7c0f?text=Produk+C" alt="Produk Brand C" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/ecfccb/4d7c0f?text=Produk+C" alt="Produk Brand C" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 4 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/fee2e2/991b1b?text=Produk+D" alt="Produk Brand D" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/fee2e2/991b1b?text=Produk+D" alt="Produk Brand D" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 5 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/f3e8ff/581c87?text=Produk+E" alt="Produk Brand E" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/f3e8ff/581c87?text=Produk+E" alt="Produk Brand E" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 6 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/fff7ed/c2410c?text=Produk+F" alt="Produk Brand F" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/fff7ed/c2410c?text=Produk+F" alt="Produk Brand F" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 7 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/ecfeff/0e7490?text=Produk+G" alt="Produk Brand G" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/ecfeff/0e7490?text=Produk+G" alt="Produk Brand G" class="client-product w-full h-full object-cover">
                     </div>
                     <!-- Klien 8 -->
-                    <div class="client-card bg-white rounded-lg shadow-md h-32 flex items-center justify-center p-4">
-                        <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H" class="client-logo max-h-16 w-auto">
-                        <img src="https://placehold.co/400x300/f0f9ff/0ea5e9?text=Produk+H" alt="Produk Brand H" class="client-product w-full h-full object-cover">
+                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
+                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H" class="max-h-16 w-auto">
+                        </div>
+                        <img src="https://placehold.co/400x400/f0f9ff/0ea5e9?text=Produk+H" alt="Produk Brand H" class="client-product w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -474,7 +490,7 @@
                 </div>
             </div>
             <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
-                &copy; 2025 Percetakan Arjuna. All Rights Reserved. by Dhiya'Ulhag Zulfa Zain
+                &copy; 2024 Percetakan Arjuna. All Rights Reserved.
             </div>
         </div>
     </footer>
@@ -537,9 +553,6 @@
                 }, 600);
             });
         });
-
-        // Script untuk Animasi Scroll
-        // Dihapus untuk kompatibilitas GitHub Pages
     </script>
 
 </body>
