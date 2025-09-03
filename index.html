@@ -27,36 +27,78 @@
             scroll-behavior: smooth;
         }
         /* Style untuk CTA button agar lebih menonjol */
-        .cta-button {
-            position: relative; /* Diperlukan untuk efek ripple */
-            overflow: hidden;   /* Diperlukan untuk efek ripple */
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        #to-top-button {
-            transition: opacity 0.3s, visibility 0.3s;
-        }
+.cta-button {
+    position: relative;
+    overflow: hidden;
+    /* Efek 3D */
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    /* Transisi lebih dinamis */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Menambahkan glow */
+    border: 2px solid transparent;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+    /* Hover dan focus */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    /* Efek glow saat di-hover */
+    border-color: #ff9900; /* Ganti dengan warna glow yang diinginkan */
+    box-shadow: 0 0 15px #ff9900, 0 0 30px #ff9900;
+}
+
+.cta-button:active {
+    /* Efek saat ditekan */
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
         
-        /* --- ANIMASI BARU --- */
+        /* --- ANIMASI RIPPLE EFFECT LEBIH MERIAH --- */
 
-        /* 1. Animasi Ripple Effect pada Tombol */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.7);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-        }
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    /* Menggunakan gradien radial untuk efek cahaya di tengah */
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0.4) 70%, rgba(255, 255, 255, 0) 100%);
+    transform: scale(0);
+    /* Durasi lebih panjang, timing function cubic-bezier untuk efek "melaju lalu melambat" */
+    animation: ripple-animation 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    /* Menambahkan box-shadow untuk efek kedalaman dan cahaya */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+    /* Memastikan ripple di atas konten lain */
+    z-index: 10;
+    /* Menambahkan sedikit blur pada awal animasi untuk efek 'muncul' */
+    filter: blur(0px);
+}
 
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
+@keyframes ripple-animation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+        filter: blur(5px); /* Lebih buram di awal */
+    }
+    30% {
+        filter: blur(0px); /* Jelas setelah beberapa saat */
+    }
+    100% {
+        transform: scale(8); /* Ukuran akhir yang lebih besar */
+        opacity: 0;
+        filter: blur(10px); /* Kembali buram saat menghilang */
+    }
+}
+
+/* --- Tambahan: Animasi untuk tombol itu sendiri saat di-klik --- */
+.my-button.clicked {
+    animation: button-press 0.2s ease-out;
+}
+
+@keyframes button-press {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); } /* Sedikit mengecil */
+    100% { transform: scale(1); }
+}
 
         /* 2. Style untuk Galeri Klien Interaktif */
         .client-card {
@@ -64,7 +106,7 @@
             overflow: hidden;
         }
         .client-card .client-logo, .client-card .client-product {
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.7s ease-in-out;
         }
         .client-card .client-product {
             position: absolute;
