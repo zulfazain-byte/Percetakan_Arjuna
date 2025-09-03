@@ -21,6 +21,11 @@
         /* Menggunakan font Poppins untuk seluruh halaman */
         body {
             font-family: 'Poppins', sans-serif;
+            /* Mencegah penyalinan konten */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         /* Animasi halus untuk scroll */
         html {
@@ -93,7 +98,30 @@
     100% { transform: scale(1); }
 }
 
-        /* 2. Style untuk Galeri Klien Interaktif */
+/* 1. Animasi pada header */
+.header-animate {
+    transition: transform 0.4s ease-in-out;
+}
+
+.header-scrolled {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 2. Animasi pada judul header */
+.title-animate {
+    transition: all 0.4s ease-in-out;
+}
+.title-animate:hover {
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+}
+.title-animate:hover .text-blue-600 {
+    transform: scale(1.1) rotate(2deg);
+    display: inline-block;
+}
+
+        /* 3. Style untuk Galeri Klien Interaktif */
         .client-card {
             position: relative;
             overflow: hidden;
@@ -116,7 +144,7 @@
             opacity: 1;
         }
 
-        /* 3. Animasi pada bagian Keunggulan Kami */
+        /* 4. Animasi pada bagian Keunggulan Kami */
         .benefit-card {
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, border 0.4s ease-in-out;
             border: 2px solid transparent;
@@ -135,7 +163,7 @@
             100% { border-color: #3b82f6; }
         }
 
-        /* 4. Animasi pada bagian Produk Kemasan Kami */
+        /* 5. Animasi pada bagian Produk Kemasan Kami */
         .product-card {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
@@ -154,7 +182,7 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* 5. Animasi pada bagian Partner Terpercaya (Tentang Kami) */
+        /* 6. Animasi pada bagian Partner Terpercaya (Tentang Kami) */
         .about-card {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
@@ -176,7 +204,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* 6. Animasi untuk credit line di footer */
+        /* 7. Animasi untuk credit line di footer */
         .credit-line {
             position: relative;
             display: inline-block;
@@ -202,7 +230,7 @@
             width: 100%;
         }
 
-        /* 7. Animasi pada hero title */
+        /* 8. Animasi pada hero title */
         .hero-title-highlight {
             transition: text-shadow 0.3s ease-in-out;
         }
@@ -210,7 +238,7 @@
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
         }
 
-        /* 8. Animasi untuk tombol WhatsApp mengambang */
+        /* 9. Animasi untuk tombol WhatsApp mengambang */
         .floating-whatsapp {
             animation: pulse-green 2s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -239,7 +267,7 @@
              color: #6b7280;
         }
 
-        /* 9. Animasi pada bagian peta */
+        /* 10. Animasi pada bagian peta */
         .map-container {
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
         }
@@ -258,12 +286,12 @@
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Header & Navigasi -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <!-- Logo Percetakan Arjuna -->
                 <img src="img/logo.png" alt="Logo Percetakan Arjuna" class="h-12 w-auto">
-                <a href="#" class="text-xl md:text-2xl font-bold text-gray-800">Percetakan <span class="text-blue-600">Arjuna</span></a>
+                <a href="#" class="text-xl md:text-2xl font-bold text-gray-800 title-animate">Percetakan <span class="text-blue-600">Arjuna</span></a>
             </div>
             <!-- Navigasi Desktop -->
             <div class="hidden md:flex items-center space-x-8">
@@ -683,6 +711,14 @@
         </svg>
     </a>
 
+    <!-- Modal untuk pesan kesalahan -->
+    <div id="modal-container" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-[999] hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl text-center">
+            <p class="text-gray-800 text-lg font-semibold mb-4">Mohon maaf, aksi penyalinan konten tidak diizinkan.</p>
+            <button id="modal-close-btn" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Tutup</button>
+        </div>
+    </div>
+
     <script>
         // Script untuk Menu Mobile
         const menuBtn = document.getElementById('menu-btn');
@@ -740,6 +776,30 @@
                     ripple.remove();
                 });
             });
+        });
+
+        // Script untuk mencegah penyalinan konten
+        const modal = document.getElementById('modal-container');
+        const closeModalBtn = document.getElementById('modal-close-btn');
+
+        function showModal() {
+            modal.classList.remove('hidden');
+        }
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        document.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            showModal();
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x')) {
+                e.preventDefault();
+                showModal();
+            }
         });
     </script>
 
