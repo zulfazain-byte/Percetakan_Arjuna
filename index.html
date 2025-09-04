@@ -125,23 +125,38 @@
         .client-card {
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
         }
-        .client-card .client-logo, .client-card .client-product {
-            transition: opacity 0.7s ease-in-out;
-        }
-        .client-card .client-product {
+        .client-card > div {
             position: absolute;
+            width: 100%;
+            height: 100%;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0;
+            backface-visibility: hidden;
+            transition: transform 0.8s;
+        }
+        .client-logo {
+            transform: rotateY(0deg);
+            z-index: 2;
+        }
+        .client-product {
+            transform: rotateY(180deg);
+            z-index: 1;
         }
         .client-card:hover .client-logo {
-            opacity: 0;
+            transform: rotateY(-180deg);
         }
         .client-card:hover .client-product {
-            opacity: 1;
+            transform: rotateY(0deg);
+        }
+        /* Memastikan gambar mengisi seluruh area kartu */
+        .client-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* 4. Animasi pada bagian Keunggulan Kami */
@@ -303,6 +318,27 @@
         .premium-card:hover h3, .premium-card:hover p {
             transform: translateZ(20px);
         }
+
+        /* Efek Parallax untuk Hero Section */
+        .hero-banner-bg {
+            background-image: url('img/banner.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Animasi Fade-in on Scroll */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -340,8 +376,7 @@
 
     <main>
         <!-- Image Banner Section -->
-        <section class="w-full bg-white">
-            <img src="img/banner.jpg" alt="Berbagai Desain Kemasan Menarik" class="w-full h-auto">
+        <section class="w-full h-[450px] hero-banner-bg">
         </section>
 
         <!-- Hero Section -->
@@ -371,7 +406,7 @@
                      <h2 class="text-3xl md:text-4xl font-bold section-title">Keunggulan Kami</h2>
                      <p class="mt-2 text-gray-600 section-subtitle">Alasan mengapa ratusan UMKM memercayakan kemasannya kepada kami.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center fade-in-on-scroll">
                     <!-- Keunggulan 1: Desain Gratis -->
                     <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4">
@@ -423,7 +458,7 @@
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Produk Kemasan Kami</h2>
                     <p class="mt-2 text-gray-600 section-subtitle">Berbagai pilihan kemasan untuk segala jenis kebutuhan bisnis Anda.</p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 fade-in-on-scroll">
                     <!-- Card Produk 1 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
                         <div class="aspect-square">
@@ -601,59 +636,75 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
                     <!-- Klien 1 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A">
                         </div>
-                        <img src="https://placehold.co/400x400/e0f2fe/0284c7?text=Produk+A" alt="Produk Brand A" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/e0f2fe/0284c7?text=Produk+A" alt="Produk Brand A">
+                        </div>
                     </div>
                     <!-- Klien 2 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B">
                         </div>
-                        <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B" alt="Produk Brand B" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B" alt="Produk Brand B">
+                        </div>
                     </div>
                     <!-- Klien 3 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C">
                         </div>
-                        <img src="https://placehold.co/400x400/ecfccb/4d7c0f?text=Produk+C" alt="Produk Brand C" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/ecfccb/4d7c0f?text=Produk+C" alt="Produk Brand C">
+                        </div>
                     </div>
                     <!-- Klien 4 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D">
                         </div>
-                        <img src="https://placehold.co/400x400/fee2e2/991b1b?text=Produk+D" alt="Produk Brand D" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/fee2e2/991b1b?text=Produk+D" alt="Produk Brand D">
+                        </div>
                     </div>
                     <!-- Klien 5 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E">
                         </div>
-                        <img src="https://placehold.co/400x400/f3e8ff/581c87?text=Produk+E" alt="Produk Brand E" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/f3e8ff/581c87?text=Produk+E" alt="Produk Brand E">
+                        </div>
                     </div>
                     <!-- Klien 6 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F">
                         </div>
-                        <img src="https://placehold.co/400x400/fff7ed/c2410c?text=Produk+F" alt="Produk Brand F" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/fff7ed/c2410c?text=Produk+F" alt="Produk Brand F">
+                        </div>
                     </div>
                     <!-- Klien 7 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G">
                         </div>
-                        <img src="https://placehold.co/400x400/ecfeff/0e7490?text=Produk+G" alt="Produk Brand G" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/ecfeff/0e7490?text=Produk+G" alt="Produk Brand G">
+                        </div>
                     </div>
                     <!-- Klien 8 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
-                        <div class="client-logo w-full h-full flex items-center justify-center p-4">
-                            <img src="https://placehold.co/200x100/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H" class="max-h-16 w-auto">
+                        <div class="client-logo">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H">
                         </div>
-                        <img src="https://placehold.co/400x400/f0f9ff/0ea5e9?text=Produk+H" alt="Produk Brand H" class="client-product w-full h-full object-cover">
+                        <div class="client-product">
+                            <img src="https://placehold.co/400x400/f0f9ff/0ea5e9?text=Produk+H" alt="Produk Brand H">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -822,6 +873,27 @@
                 e.preventDefault();
                 showModal();
             }
+        });
+        
+        // Animasi fade-in on scroll
+        const faders = document.querySelectorAll('.fade-in-on-scroll');
+        const appearOptions = {
+            threshold: 0.25
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('is-visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
         });
     </script>
 
