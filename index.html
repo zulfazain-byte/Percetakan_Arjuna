@@ -281,6 +281,28 @@
             filter: grayscale(0%);
             transition: filter 0.4s ease-in-out;
         }
+
+        /* 11. Animasi 3D untuk bagian Herbal & Kosmetik */
+        .premium-card {
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s ease-in-out, border-color 0.6s ease-in-out;
+            transform: translateZ(0);
+            border: 2px solid transparent; /* Border default */
+        }
+        .premium-card:hover {
+            transform: scale(1.05) translateY(-5px) translateZ(10px);
+            /* Efek multi-bayangan untuk ilusi cahaya yang lebih halus */
+            box-shadow: 
+                0 0 10px rgba(59, 130, 246, 0.2), 
+                0 0 20px rgba(59, 130, 246, 0.1), 
+                0 15px 30px rgba(0, 0, 0, 0.25); 
+            border-color: #3b82f6; /* Border yang menyala */
+        }
+        .premium-card h3, .premium-card p {
+            transition: transform 0.6s ease-in-out;
+        }
+        .premium-card:hover h3, .premium-card:hover p {
+            transform: translateZ(20px);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -558,7 +580,7 @@
                 </div>
 
                 <!-- Bagian untuk Herbal & Kosmetik -->
-                <div class="text-center my-16 py-12 px-6 bg-white rounded-lg shadow-lg border border-blue-100">
+                <div class="text-center my-16 py-12 px-6 bg-white rounded-lg shadow-lg border border-blue-100 premium-card">
                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Kemasan Premium untuk Brand Herbal & Kosmetik Anda</h3>
                     <p class="mt-4 text-gray-600 max-w-4xl mx-auto text-base md:text-lg">
                         Di industri herbal dan kosmetik, kemasan adalah faktor penentu. Kemasan yang tepat tidak hanya melindungi produk, tetapi juga membangun <strong>kepercayaan pelanggan</strong> dan menciptakan <strong>citra brand yang kuat</strong>. Inilah yang akan membedakan produk Anda di tengah persaingan.
