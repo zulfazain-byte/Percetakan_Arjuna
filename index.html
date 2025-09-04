@@ -318,14 +318,23 @@
         .premium-card:hover h3, .premium-card:hover p {
             transform: translateZ(20px);
         }
-
-        /* Efek Parallax untuk Hero Section */
-        .hero-banner-bg {
-            background-image: url('img/banner.jpg');
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        
+        /* Gaya baru untuk parallax image yang lebih responsif */
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+        }
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%; /* Sedikit lebih besar untuk efek parallax */
+            object-fit: cover;
+            transform: translateY(0);
+            transition: transform 0s linear;
         }
 
         /* Animasi Fade-in on Scroll */
@@ -375,8 +384,11 @@
     </header>
 
     <main>
-        <!-- Image Banner Section -->
-        <section class="w-full h-[450px] hero-banner-bg">
+        <!-- Image Banner Section with Parallax Effect -->
+        <section class="w-full h-[450px] relative overflow-hidden">
+            <div class="hero-image-container">
+                <img id="parallax-image" src="img/banner.jpg" alt="Kemasan Produk Percetakan Arjuna" class="hero-image">
+            </div>
         </section>
 
         <!-- Hero Section -->
@@ -649,7 +661,7 @@
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B">
                         </div>
                         <div class="client-product">
-                            <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B" alt="Produk Brand B">
+                            <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B">
                         </div>
                     </div>
                     <!-- Klien 3 -->
@@ -894,6 +906,13 @@
 
         faders.forEach(fader => {
             appearOnScroll.observe(fader);
+        });
+
+        // Script untuk Parallax Hero Image
+        const parallaxImage = document.getElementById('parallax-image');
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            parallaxImage.style.transform = `translateY(${scrollPosition * 0.5}px)`;
         });
     </script>
 
