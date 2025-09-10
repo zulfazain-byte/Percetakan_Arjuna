@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Favicon -->
+    <link rel="icon" href="img/logo.png" type="image/png">
+    
     <!-- Judul dan Meta Deskripsi untuk SEO -->
     <title>Percetakan Arjuna - Cetak Dus Kemasan Custom Yogyakarta</title>
     <meta name="description" content="Percetakan Arjuna di Sleman, Yogyakarta. Spesialis cetak paper lunch box, rice box, dus sate, donat, martabak, dan kemasan UMKM kuliner. Desain gratis suka-suka, kualitas terjamin.">
@@ -29,7 +32,7 @@
         }
         /* Animasi halus untuk scroll */
         html {
-            scroll-behavior: very smooth;
+            scroll-behavior: smooth;
         }
         /* Style untuk CTA button agar lebih menonjol */
 .cta-button {
@@ -38,7 +41,7 @@
     /* Efek 3D */
     transform: perspective(1px) translateZ(0);
     /* Transisi lebih dinamis */
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     /* Menambahkan glow */
     border: 6px solid transparent;
 }
@@ -57,7 +60,7 @@
     /* Efek saat ditekan */
     transform: translateY(0);
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.9);
-    animation: button-pop 0.6s ease-out; /* Animasi pop-up saat diklik */
+    animation: button-pop 0.2s ease-out; /* Animasi pop-up saat diklik */
 }
         
         /* --- ANIMASI RIPPLE EFFECT LEBIH CEPAT DAN HALUS --- */
@@ -68,7 +71,7 @@
     background: radial-gradient(circle at center, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
     transform: scale(0);
     /* Durasi lebih pendek, cubic-bezier untuk efek "melaju lalu melambat" */
-    animation: ripple-animation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: ripple-animation 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     /* Menambahkan bayangan untuk aksen tipis */
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
     /* Memastikan ripple di atas konten lain */
@@ -100,7 +103,7 @@
 
 /* 1. Animasi pada header */
 .header-animate {
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.4s ease-in-out;
 }
 
 .header-scrolled {
@@ -110,7 +113,7 @@
 
 /* 2. Animasi pada judul header */
 .title-animate {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 .title-animate:hover {
     letter-spacing: 2px;
@@ -126,7 +129,7 @@
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
-            transition: transform 0.9s;
+            transition: transform 0.8s;
             cursor: pointer;
         }
         .client-card > div {
@@ -136,7 +139,7 @@
             top: 0;
             left: 0;
             backface-visibility: hidden;
-            transition: transform 0.9s;
+            transition: transform 0.8s;
         }
         .client-logo {
             transform: rotateY(0deg);
