@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class=""> <!-- Class attribute added for theme toggling -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Favicon -->
-    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="icon" href="https://placehold.co/32x32/3b82f6/white?text=A" type="image/png">
     
     <!-- Judul dan Meta Deskripsi untuk SEO -->
     <title>Percetakan Arjuna - Cetak Dus Kemasan Custom Yogyakarta</title>
@@ -174,6 +174,10 @@
             border: 2px solid #3b82f6;
             animation: pulsate-border 1.5s infinite ease-in-out;
         }
+        .dark .benefit-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #60a5fa;
+        }
 
         @keyframes pulsate-border {
             0% { border-color: #3b82f6; }
@@ -192,6 +196,9 @@
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
+        .dark .product-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
         .product-card:hover img {
             transform: scale(1.1);
         }
@@ -208,6 +215,9 @@
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
+        .dark .about-card:hover {
+             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
         .about-card:active {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
@@ -220,6 +230,9 @@
         .stat-card:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .dark .stat-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* 7. Animasi untuk credit line di footer */
@@ -255,6 +268,9 @@
         .hero-title-highlight:hover {
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
         }
+        .dark .hero-title-highlight:hover {
+             text-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+        }
 
         /* 9. Animasi untuk tombol WhatsApp mengambang */
         .floating-whatsapp {
@@ -276,14 +292,23 @@
         }
 
         /* Animasi pada judul di setiap section */
+        .section-title {
+             transition: color 0.3s ease-in-out;
+        }
         .section-title:hover {
-            transition: color 0.3s ease-in-out;
             color: #3b82f6;
+        }
+        .dark .section-title:hover {
+            color: #60a5fa;
         }
         .section-subtitle:hover {
              transition: color 0.3s ease-in-out;
              color: #6b7280;
         }
+         .dark .section-subtitle:hover {
+             color: #9ca3af;
+        }
+
 
         /* 10. Animasi pada bagian peta */
         .map-container {
@@ -315,6 +340,14 @@
                 0 15px 30px rgba(0, 0, 0, 0.25); 
             border-color: #3b82f6; /* Border yang menyala */
         }
+        .dark .premium-card:hover {
+             border-color: #60a5fa;
+             box-shadow: 
+                0 0 10px rgba(96, 165, 250, 0.3), 
+                0 0 20px rgba(96, 165, 250, 0.2), 
+                0 15px 30px rgba(0, 0, 0, 0.5); 
+        }
+
         .premium-card h3, .premium-card p {
             transition: transform 0.6s ease-in-out;
         }
@@ -342,25 +375,30 @@
 
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-500">
 
     <!-- Header & Navigasi -->
-    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+    <header id="header" class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-md sticky top-0 z-50 transition-colors duration-500">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <!-- Logo Percetakan Arjuna -->
-                <img src="img/logo.png" alt="Logo Percetakan Arjuna" class="h-12 w-auto">
-                <a href="#" class="text-xl md:text-2xl font-bold text-gray-800 title-animate">Percetakan <span class="text-blue-600">Arjuna</span></a>
+                <img src="https://placehold.co/48x48/3b82f6/white?text=A" alt="Logo Percetakan Arjuna" class="h-12 w-auto rounded-full">
+                <a href="#" class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white title-animate">Percetakan <span class="text-blue-600 dark:text-blue-400">Arjuna</span></a>
             </div>
             <!-- Navigasi Desktop -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#produk" class="text-gray-600 hover:text-blue-600">Produk</a>
-                <a href="#tentang" class="text-gray-600 hover:text-blue-600">Tentang Kami</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#produk" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Produk</a>
+                <a href="#tentang" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Tentang Kami</a>
                 <a href="#kontak" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Hubungi Kami</a>
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+                    <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 016.465 3.636l.707.707a1 1 0 01-1.414 1.414l-.707-.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
             </div>
             <!-- Tombol Menu Mobile -->
             <div class="md:hidden">
-                <button id="menu-btn" class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                <button id="menu-btn" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
@@ -368,27 +406,36 @@
             </div>
         </nav>
         <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <a href="#produk" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Produk</a>
-            <a href="#tentang" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Tentang Kami</a>
-            <a href="#kontak" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Hubungi Kami</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-700">
+            <a href="#produk" class="block py-2 px-6 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">Produk</a>
+            <a href="#tentang" class="block py-2 px-6 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">Tentang Kami</a>
+            <a href="#kontak" class="block py-2 px-6 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">Hubungi Kami</a>
+            <div class="px-6 py-2">
+                 <button id="theme-toggle-mobile" class="w-full flex justify-between items-center text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md">
+                    <span>Ganti Tema</span>
+                    <span>
+                        <svg id="theme-toggle-dark-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 016.465 3.636l.707.707a1 1 0 01-1.414 1.414l-.707-.707zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
         <!-- Image Banner Section -->
-        <section class="w-full bg-white">
-            <img src="img/banner.png" alt="Kemasan Produk Percetakan Arjuna" class="w-full h-auto">
+        <section class="w-full bg-white dark:bg-gray-900">
+            <img src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?q=80&w=2070&auto=format&fit=crop" alt="Kemasan Produk Percetakan Arjuna" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/e2e8f0/334155?text=Banner+Percetakan';">
         </section>
 
         <!-- Hero Section -->
-        <section class="bg-white">
+        <section class="bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6 py-20 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
-                    Wujudkan <span class="text-blue-600 hero-title-highlight">Kemasan Impian</span> Bisnis Anda
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white leading-tight">
+                    Wujudkan <span class="text-blue-600 dark:text-blue-400 hero-title-highlight">Kemasan Impian</span> Bisnis Anda
                 </h1>
-                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                    Kesan pertama menentukan segalanya. Jangan biarkan produk istimewa Anda tampil biasa saja. Di Percetakan Arjuna, kami mengubah kemasan menjadi duta brand Anda. Biarkan tim desainer ahli kami merancang kemasan eksklusif sesuai visi Anda—sepenuhnya <span class="font-bold text-blue-600">GRATIS</span>. Ciptakan kemasan profesional tak terlupakan yang memikat pelanggan bahkan sebelum mereka mencicipi produk Anda.
+                <p class="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                    Kesan pertama menentukan segalanya. Jangan biarkan produk istimewa Anda tampil biasa saja. Di Percetakan Arjuna, kami mengubah kemasan menjadi duta brand Anda. Biarkan tim desainer ahli kami merancang kemasan eksklusif sesuai visi Anda—sepenuhnya <span class="font-bold text-blue-600 dark:text-blue-400">GRATIS</span>. Ciptakan kemasan profesional tak terlupakan yang memikat pelanggan bahkan sebelum mereka mencicipi produk Anda.
                 </p>
                 <div class="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
                     <a href="https://wa.me/6282226903074?text=Halo%20Percetakan%20Arjuna,%20saya%20tertarik%20untuk%20membuat%20kemasan%20custom." target="_blank" class="cta-button w-full sm:w-auto bg-green-500 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-green-600">
@@ -406,167 +453,167 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                      <h2 class="text-3xl md:text-4xl font-bold section-title">Keunggulan Kami</h2>
-                     <p class="mt-2 text-gray-600 section-subtitle">Alasan mengapa ratusan UMKM memercayakan kemasannya kepada kami.</p>
+                     <p class="mt-2 text-gray-600 dark:text-gray-400 section-subtitle">Alasan mengapa ratusan UMKM memercayakan kemasannya kepada kami.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center fade-in-on-scroll">
                     <!-- Keunggulan 1: Desain Gratis -->
-                    <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="benefit-card bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" />
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Desain Suka-Suka GRATIS</h3>
-                        <p class="text-gray-600">Tim desain siap membantu membuat kemasan menarik sesuai selera dan impian Anda.</p>
+                        <p class="text-gray-600 dark:text-gray-400">Tim desain siap membantu membuat kemasan menarik sesuai selera dan impian Anda.</p>
                     </div>
                     <!-- Keunggulan 2: Cetak Jumlah Kecil -->
-                    <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="benefit-card bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-14L4 7m0 0v10l8 4m0-14L4 7" />
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Bisa Cetak Jumlah Kecil</h3>
-                        <p class="text-gray-600">Mulai dari 500 pcs, cocok untuk UMKM yang baru mulai merintis bisnis.</p>
+                        <p class="text-gray-600 dark:text-gray-400">Mulai dari 500 pcs, cocok untuk UMKM yang baru mulai merintis bisnis.</p>
                     </div>
                     <!-- Keunggulan 3: Layanan Cepat -->
-                    <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="benefit-card bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                              </svg>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Layanan Cepat</h3>
-                        <p class="text-gray-600">Kami berdedikasi memberikan respons ramah dan proses cepat untuk kepuasan pelanggan.</p>
+                        <p class="text-gray-600 dark:text-gray-400">Kami berdedikasi memberikan respons ramah dan proses cepat untuk kepuasan pelanggan.</p>
                     </div>
                     <!-- Keunggulan 4: Dukungan UMKM -->
-                    <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="benefit-card bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.085a2 2 0 00-1.915 1.915L5 10m7 0a1 1 0 001 1h3.546l-1.09 2H9m4 0C9 13 8 14 7 14c-1.21 0-2.27-.596-3-1.5" />
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Dukungan Penuh Untuk UMKM</h3>
-                        <p class="text-gray-600">Khusus mendukung UMKM naik kelas, kami memberikan penawaran terbaik.</p>
+                        <p class="text-gray-600 dark:text-gray-400">Khusus mendukung UMKM naik kelas, kami memberikan penawaran terbaik.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Produk Section -->
-        <section id="produk" class="bg-white py-20">
+        <section id="produk" class="bg-white dark:bg-gray-900 py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Produk Kemasan Kami</h2>
-                    <p class="mt-2 text-gray-600 section-subtitle">Berbagai pilihan kemasan untuk segala jenis kebutuhan bisnis Anda.</p>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 section-subtitle">Berbagai pilihan kemasan untuk segala jenis kebutuhan bisnis Anda.</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 fade-in-on-scroll">
                     <!-- Card Produk 1 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/lunchboxm.jpg" alt="Lunch Box" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1621232353384-59a6d234d70b?q=80&w=1974&auto=format&fit=crop" alt="Lunch Box" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Lunch+Box';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Lunch Box</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Lunch Box</h4>
                         </div>
                     </div>
                     <!-- Card Produk 2 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/taichan.jpg" alt="Taichan" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1599819122171-8bf881a5a8f5?q=80&w=1935&auto=format&fit=crop" alt="Taichan" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Taichan';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Taichan</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Taichan</h4>
                         </div>
                     </div>
                     <!-- Card Produk 3 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/brownies.jpg" alt="Brownies" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=1974&auto=format&fit=crop" alt="Brownies" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Brownies';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Brownies</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Brownies</h4>
                         </div>
                     </div>
                     <!-- Card Produk 4 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/donut1.jpg" alt="Donut 1pcs" class="w-full h-full object-cover">
+                             <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=1974&auto=format&fit=crop" alt="Donut 1pcs" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Donut+1pcs';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Donut 1pcs</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Donut 1pcs</h4>
                         </div>
                     </div>
                     <!-- Card Produk 5 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/donut2.jpg" alt="Donut 2pcs" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1533910534207-90f31029a78e?q=80&w=2070&auto=format&fit=crop" alt="Donut 2pcs" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Donut+2pcs';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Donut 2pcs</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Donut 2pcs</h4>
                         </div>
                     </div>
                     <!-- Card Produk 6 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/donut3.jpg" alt="Donut 3pcs" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=1964&auto=format&fit=crop" alt="Donut 3pcs" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Donut+3pcs';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Donut 3pcs</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Donut 3pcs</h4>
                         </div>
                     </div>
                     <!-- Card Produk 7 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/donut6.jpg" alt="Donut 6pcs" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1626082932418-500b527878d6?q=80&w=1974&auto=format&fit=crop" alt="Donut 6pcs" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Donut+6pcs';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Donut 6pcs</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Donut 6pcs</h4>
                         </div>
                     </div>
                     <!-- Card Produk 8 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
-                            <img src="img/fried.jpg" alt="Fried Chicken" class="w-full h-full object-cover">
+                             <img src="https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=2073&auto=format&fit=crop" alt="Fried Chicken" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/334155?text=Fried+Chicken';">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Fried Chicken</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Fried Chicken</h4>
                         </div>
                     </div>
                      <!-- Card Produk 9 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Roti+Bakar" alt="Dus Roti Bakar" class="w-full h-full object-cover">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Dus Roti Bakar</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Dus Roti Bakar</h4>
                         </div>
                     </div>
                      <!-- Card Produk 10 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Burger" alt="Dus Burger" class="w-full h-full object-cover">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Dus Burger</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Dus Burger</h4>
                         </div>
                     </div>
                      <!-- Card Produk 11 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Kebab" alt="Dus Kebab" class="w-full h-full object-cover">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Dus Kebab</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Dus Kebab</h4>
                         </div>
                     </div>
                      <!-- Card Produk 12 -->
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+                    <div class="product-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl dark:shadow-none transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+FNB" alt="Dus FNB" class="w-full h-full object-cover">
                         </div>
                         <div class="p-4">
-                            <h4 class="font-semibold text-center text-gray-700">Dus F&B Lainnya</h4>
+                            <h4 class="font-semibold text-center text-gray-700 dark:text-gray-300">Dus F&B Lainnya</h4>
                         </div>
                     </div>
                 </div>
@@ -578,54 +625,54 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Partner Terpercaya untuk Kemasan UMKM Anda</h2>
-                    <p class="mt-2 text-gray-600 max-w-3xl mx-auto section-subtitle">Sejak 2022, Percetakan Arjuna berkomitmen menjadi solusi kemasan berkualitas bagi para pelaku UMKM kuliner. Kami percaya bahwa kemasan yang baik adalah investasi untuk meningkatkan citra brand dan kepercayaan pelanggan.</p>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto section-subtitle">Sejak 2022, Percetakan Arjuna berkomitmen menjadi solusi kemasan berkualitas bagi para pelaku UMKM kuliner. Kami percaya bahwa kemasan yang baik adalah investasi untuk meningkatkan citra brand dan kepercayaan pelanggan.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
-                    <div class="about-card bg-white p-8 rounded-lg shadow-lg">
+                    <div class="about-card bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700">
                         <h3 class="text-2xl font-bold mb-4">Kualitas Material Terbaik untuk Produk Anda</h3>
-                        <p class="text-gray-600 mb-4">Kami memahami setiap produk memiliki kebutuhan yang unik. Oleh karena itu, kami menyediakan beragam pilihan material premium untuk memastikan kemasan Anda tidak hanya menarik secara visual, tetapi juga fungsional dan aman.</p>
-                        <ul class="space-y-2">
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Kami memahami setiap produk memiliki kebutuhan yang unik. Oleh karena itu, kami menyediakan beragam pilihan material premium untuk memastikan kemasan Anda tidak hanya menarik secara visual, tetapi juga fungsional dan aman.</p>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400">
                             <li class="flex items-start">
                                 <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                <span><span class="font-semibold">Ivory & Art Carton:</span> Memberikan kesan mewah dan kokoh, ideal untuk produk premium.</span>
+                                <span><span class="font-semibold text-gray-700 dark:text-gray-300">Ivory & Art Carton:</span> Memberikan kesan mewah dan kokoh, ideal untuk produk premium.</span>
                             </li>
                             <li class="flex items-start">
                                 <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                <span><span class="font-semibold">Kraft & Duplex:</span> Pilihan ramah lingkungan dan ekonomis dengan tampilan natural yang otentik.</span>
+                                <span><span class="font-semibold text-gray-700 dark:text-gray-300">Kraft & Duplex:</span> Pilihan ramah lingkungan dan ekonomis dengan tampilan natural yang otentik.</span>
                             </li>
                              <li class="flex items-start">
                                 <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                <span><span class="font-semibold">Laminasi Dalam (Food Grade):</span> Menjaga ketahanan produk dari minyak atau air, memastikan kualitas makanan tetap terjaga hingga ke tangan konsumen.</span>
+                                <span><span class="font-semibold text-gray-700 dark:text-gray-300">Laminasi Dalam (Food Grade):</span> Menjaga ketahanan produk dari minyak atau air, memastikan kualitas makanan tetap terjaga hingga ke tangan konsumen.</span>
                             </li>
                         </ul>
                     </div>
-                    <div class="about-card grid grid-cols-2 gap-6">
-                         <div class="text-center bg-white p-6 rounded-lg shadow-lg stat-card">
-                             <p class="text-4xl font-bold text-blue-600">3+</p>
-                             <p class="text-gray-600 mt-1">Tahun Pengalaman</p>
+                    <div class="grid grid-cols-2 gap-6">
+                         <div class="text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700 stat-card">
+                             <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">3+</p>
+                             <p class="text-gray-600 dark:text-gray-400 mt-1">Tahun Pengalaman</p>
                          </div>
-                         <div class="text-center bg-white p-6 rounded-lg shadow-lg stat-card">
-                             <p class="text-4xl font-bold text-blue-600">500+</p>
-                             <p class="text-gray-600 mt-1">Klien Puas</p>
+                         <div class="text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg dark:shadow-none dark:border dark:border-gray-700 stat-card">
+                             <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">500+</p>
+                             <p class="text-gray-600 dark:text-gray-400 mt-1">Klien Puas</p>
                          </div>
-                         <div class="text-center bg-white p-6 rounded-lg shadow-lg col-span-2 stat-card">
-                             <p class="text-4xl font-bold text-blue-600">4.9/5</p>
-                             <p class="text-gray-600 mt-1">Rating Pelanggan</p>
+                         <div class="text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg col-span-2 dark:shadow-none dark:border dark:border-gray-700 stat-card">
+                             <p class="text-4xl font-bold text-blue-600 dark:text-blue-400">4.9/5</p>
+                             <p class="text-gray-600 dark:text-gray-400 mt-1">Rating Pelanggan</p>
                          </div>
                     </div>
                 </div>
 
                 <!-- Bagian untuk Herbal & Kosmetik -->
-                <div class="text-center my-16 py-12 px-6 bg-white rounded-lg shadow-lg border border-blue-100 premium-card">
+                <div class="text-center my-16 py-12 px-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-none border border-blue-100 dark:border-gray-700 premium-card">
                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Kemasan Premium untuk Brand Herbal & Kosmetik Anda</h3>
-                    <p class="mt-4 text-gray-600 max-w-4xl mx-auto text-base md:text-lg">
-                        Di industri herbal dan kosmetik, kemasan adalah faktor penentu. Kemasan yang tepat tidak hanya melindungi produk, tetapi juga membangun <strong>kepercayaan pelanggan</strong> dan menciptakan <strong>citra brand yang kuat</strong>. Inilah yang akan membedakan produk Anda di tengah persaingan.
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 max-w-4xl mx-auto text-base md:text-lg">
+                        Di industri herbal dan kosmetik, kemasan adalah faktor penentu. Kemasan yang tepat tidak hanya melindungi produk, tetapi juga membangun <strong class="text-gray-700 dark:text-gray-200">kepercayaan pelanggan</strong> dan menciptakan <strong class="text-gray-700 dark:text-gray-200">citra brand yang kuat</strong>. Inilah yang akan membedakan produk Anda di tengah persaingan.
                     </p>
-                    <p class="mt-4 text-gray-600 max-w-4xl mx-auto text-base md:text-lg">
-                        Kami di Percetakan Arjuna menerapkan standar presisi dan kualitas tinggi untuk membantu brand Anda tampil profesional. Pilih dari material terbaik seperti <strong>Ivory</strong> dan <strong>Art Carton</strong> untuk kesan kokoh dan premium. Tambahkan sentuhan akhir yang eksklusif dengan teknik <strong>finishing</strong> seperti <span class="italic">hot foil, emboss,</span> atau <span class="italic">spot UV</span> untuk memastikan produk Anda menjadi pusat perhatian.
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 max-w-4xl mx-auto text-base md:text-lg">
+                        Kami di Percetakan Arjuna menerapkan standar presisi dan kualitas tinggi untuk membantu brand Anda tampil profesional. Pilih dari material terbaik seperti <strong class="text-gray-700 dark:text-gray-200">Ivory</strong> dan <strong class="text-gray-700 dark:text-gray-200">Art Carton</strong> untuk kesan kokoh dan premium. Tambahkan sentuhan akhir yang eksklusif dengan teknik <strong class="text-gray-700 dark:text-gray-200">finishing</strong> seperti <span class="italic">hot foil, emboss,</span> atau <span class="italic">spot UV</span> untuk memastikan produk Anda menjadi pusat perhatian.
                     </p>
-                     <p class="mt-6 text-gray-700 max-w-4xl mx-auto text-base md:text-lg font-semibold">
+                     <p class="mt-6 text-gray-700 dark:text-gray-300 max-w-4xl mx-auto text-base md:text-lg font-semibold">
                         Mari wujudkan kemasan yang merepresentasikan kualitas produk Anda. Diskusikan ide Anda dengan kami sekarang.
                     </p>
                 </div>
@@ -633,11 +680,11 @@
                 <!-- Klien Kami Section -->
                 <div class="text-center mb-12">
                     <h3 class="text-2xl font-bold section-title">Klien Kami</h3>
-                    <p class="mt-2 text-gray-600 section-subtitle">Kami bangga menjadi partner bagi berbagai brand untuk tumbuh bersama.</p>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 section-subtitle">Kami bangga menjadi partner bagi berbagai brand untuk tumbuh bersama.</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
                     <!-- Klien 1 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A">
                         </div>
@@ -646,16 +693,16 @@
                         </div>
                     </div>
                     <!-- Klien 2 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B">
                         </div>
                         <div class="client-product">
-                            <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B">
+                            <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B" alt="Produk Brand B">
                         </div>
                     </div>
                     <!-- Klien 3 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C">
                         </div>
@@ -664,7 +711,7 @@
                         </div>
                     </div>
                     <!-- Klien 4 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D">
                         </div>
@@ -673,7 +720,7 @@
                         </div>
                     </div>
                     <!-- Klien 5 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E">
                         </div>
@@ -682,7 +729,7 @@
                         </div>
                     </div>
                     <!-- Klien 6 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F">
                         </div>
@@ -691,7 +738,7 @@
                         </div>
                     </div>
                     <!-- Klien 7 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G">
                         </div>
@@ -700,7 +747,7 @@
                         </div>
                     </div>
                     <!-- Klien 8 -->
-                    <div class="client-card bg-white rounded-lg shadow-md aspect-square">
+                    <div class="client-card bg-white dark:bg-gray-800 rounded-lg shadow-md aspect-square dark:shadow-none dark:border dark:border-gray-700">
                         <div class="client-logo">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H">
                         </div>
@@ -734,16 +781,16 @@
         </section>
 
         <!-- Google Maps Section -->
-        <section id="lokasi" class="py-20 bg-white">
+        <section id="lokasi" class="py-20 bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Temukan Lokasi Kami</h2>
-                    <p class="mt-2 text-gray-600 max-w-2xl mx-auto section-subtitle">
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto section-subtitle">
                         Dusun Nglarang No.44, RT.05/RW.35, Jetis, Wedomartani, Kec. Ngemplak, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55584
                     </p>
                 </div>
                 <div class="overflow-hidden rounded-lg shadow-xl map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.284755836035!2d10.4186406758681!3d-7.75949439225708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a597352f9e5e7%3A0x819492d100bff3cb!2sPercetakan%20Arjuna!5e0!3m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.284755836035!2d110.4186406758681!3d-7.75949439225708!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a597352f9e5e7%3A0x819492d100bff3cb!2sPercetakan%20Arjuna!5e0!3m2!1sid!2sid" width="100%" height="450" class="dark:invert dark:grayscale" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
@@ -751,7 +798,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white">
+    <footer class="bg-gray-800 dark:bg-black text-white">
         <div class="container mx-auto px-6 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="text-center md:text-left mb-4 md:mb-0">
@@ -788,13 +835,62 @@
 
     <!-- Modal untuk pesan kesalahan -->
     <div id="modal-container" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-[999] hidden">
-        <div class="bg-white p-6 rounded-lg shadow-xl text-center">
-            <p class="text-gray-800 text-lg font-semibold mb-4">Mohon maaf, aksi penyalinan konten tidak diizinkan.</p>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl text-center">
+            <p class="text-gray-800 dark:text-gray-200 text-lg font-semibold mb-4">Mohon maaf, aksi penyalinan konten tidak diizinkan.</p>
             <button id="modal-close-btn" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Tutup</button>
         </div>
     </div>
 
     <script>
+        // --- THEME TOGGLE SCRIPT ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const darkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+        const lightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+
+        // Function to set the theme
+        const setTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+                lightIconMobile.classList.remove('hidden');
+                darkIconMobile.classList.add('hidden');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+                lightIconMobile.classList.add('hidden');
+                darkIconMobile.classList.remove('hidden');
+                localStorage.setItem('theme', 'light');
+            }
+        };
+
+        // Check for saved theme preference or system preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            setTheme(currentTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+        
+        // Event listeners for toggle buttons
+        const toggleTheme = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(isDark ? 'light' : 'dark');
+        };
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobileBtn.addEventListener('click', toggleTheme);
+        
+        // --- Original Scripts ---
+
         // Script untuk Menu Mobile
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
