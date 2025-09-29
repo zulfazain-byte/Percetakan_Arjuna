@@ -837,54 +837,6 @@
         // Script untuk Animasi Hero Text (Kata per Kata)
     const heroTitleContainer = document.getElementById('hero-title-container');
     const heroText = 'Wujudkan <span class="text-blue-600 hero-title-highlight">Kemasan Impian</span> Bisnis Anda';
-
-        // Script untuk Animasi Hero Text (Kata per Kata)
-    const heroTitleContainer = document.getElementById('hero-title-container');
-        // Pisahkan teks menjadi beberapa bagian logis untuk menjaga struktur HTML
-    const heroTextParts = [
-    'Wujudkan',
-    '<span class="text-blue-600 hero-title-highlight">Kemasan Impian</span>',
-    'Bisnis Anda'
-    ];
-
-    function animateHeroText() {
-    heroTitleContainer.innerHTML = '';
-    const words = heroText.split(/\s+/);
-    words.forEach((word, index) => {
-        const span = document.createElement('span');
-        span.classList.add('hero-text-word');
-        span.innerHTML = word + (index < words.length - 1 ? ' ' : '');
-        span.style.transitionDelay = `${index * 0.1}s`;
-        heroTitleContainer.appendChild(span);
-        // Trigger animation
-        setTimeout(() => {
-            span.style.opacity = '1';
-            span.style.transform = 'translateY(0)';
-        }, 50);
-    });
-}
-
-        function animateHeroText() {
-    heroTitleContainer.innerHTML = '';
-    heroTextParts.forEach((part, index) => {
-        // Membuat elemen span untuk setiap bagian teks
-        const span = document.createElement('span');
-        span.classList.add('hero-text-word'); // Menggunakan class animasi yang sama
-        span.innerHTML = part + ' '; // Menambahkan konten bagian dan spasi
-        span.style.transitionDelay = `${index * 0.2}s`; // Sedikit perlambat delay agar lebih elegan
-        heroTitleContainer.appendChild(span);
-
-        // Memicu animasi
-        setTimeout(() => {
-            span.style.opacity = '1';
-            span.style.transform = 'translateY(0)';
-        }, 50);
-    });
-}
-
-        .hero-title-highlight:hover {
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
-}
         
         function animateHeroText() {
             heroTitleContainer.innerHTML = '';
