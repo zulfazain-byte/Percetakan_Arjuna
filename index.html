@@ -1,18 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Favicon -->
     <link rel="icon" href="img/logo.png" type="image/png">
     
+    <!-- Judul dan Meta Deskripsi untuk SEO -->
     <title>Percetakan Arjuna - Cetak Dus Kemasan Custom Yogyakarta</title>
     <meta name="description" content="Percetakan Arjuna di Sleman, Yogyakarta. Spesialis cetak paper lunch box, rice box, dus sate, donat, martabak, dan kemasan UMKM kuliner. Desain gratis suka-suka, kualitas terjamin.">
     <meta name="keywords" content="Paper Lunch Box, Rice paper Box, Dus Sate, Dus Corndog, Dus 18x18, Dus 20x20, Dus Donat, Dus Martabak, Dus Roti Bakar, Dus Burger, Dus Kebab, Dus FNB, Dus UMKM Kuliner, Percetakan Dus Yogyakarta, Cetak Kemasan Sleman, Ivory, Kraft, Duplex, Art Paper, Kemasan Herbal, Kemasan Kosmetik">
     
+    <!-- Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts for creative typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -197,10 +200,17 @@
         }
         /* Interaktif Ikon Keunggulan */
         .benefit-icon {
-            transition: transform 0.3s ease-in-out;
+            /* PERUBAHAN: Durasi transisi diperpanjang agar putaran lebih terlihat */
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer; /* Menambahkan cursor pointer untuk menandakan bisa diklik */
         }
         .benefit-card:hover .benefit-icon {
             transform: scale(1.1) rotate(5deg);
+        }
+
+        /* KODE BARU: Kelas untuk animasi putaran saat ikon diklik */
+        .benefit-icon.is-spinning {
+            transform: rotate(360deg) scale(1.1); /* Sedikit scaling saat berputar */
         }
 
 
@@ -379,17 +389,21 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
+    <!-- Header & Navigasi -->
     <header id="header" class="bg-white shadow-md sticky top-0 z-50 header-animate">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
             <div class="flex items-center space-x-3">
+                <!-- Logo Percetakan Arjuna -->
                 <img src="img/logo.png" alt="Logo Percetakan Arjuna" class="h-12 w-auto">
                 <a href="#" class="text-xl md:text-2xl font-bold text-gray-800 title-animate">Percetakan <span class="text-blue-600">Arjuna</span></a>
             </div>
+            <!-- Navigasi Desktop -->
             <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
                 <a href="#produk" class="nav-link text-gray-600 hover:text-blue-600" data-section="produk">Produk</a>
                 <a href="#tentang" class="nav-link text-gray-600 hover:text-blue-600" data-section="tentang">Tentang Kami</a>
                 <a href="#kontak" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Hubungi Kami</a>
             </div>
+            <!-- Tombol Menu Mobile -->
             <div class="md:hidden">
                 <button id="menu-btn" class="text-gray-600 hover:text-blue-600 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -398,6 +412,7 @@
                 </button>
             </div>
         </nav>
+        <!-- Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
             <a href="#produk" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Produk</a>
             <a href="#tentang" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Tentang Kami</a>
@@ -406,14 +421,18 @@
     </header>
 
     <main>
+        <!-- Image Banner Section -->
         <section class="w-full bg-white">
+            <!-- Menghilangkan Parallax, mempertahankan responsif -->
             <img src="img/Banner.png.png" alt="Kemasan Produk Percetakan Arjuna" class="w-full h-auto hero-image">
         </section>
 
+        <!-- Hero Section -->
         <section class="bg-white" id="hero-section">
-            <div class="container mx-auto px-6 py-20 text-center">
+            <div class="container mx-auto px-6 py-20 text-center max-w-7xl">
                 <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight" id="hero-title-container">
-                    </h1>
+                    <!-- Teks Hero yang akan dipecah oleh JS -->
+                </h1>
                 <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
                     Kesan pertama menentukan segalanya. Jangan biarkan produk istimewa Anda tampil biasa saja. Di Percetakan Arjuna, kami mengubah kemasan menjadi duta brand Anda. Biarkan tim desainer ahli kami merancang kemasan eksklusif sesuai visi Anda—sepenuhnya <span class="font-bold text-blue-600">GRATIS</span>. Ciptakan kemasan profesional tak terlupakan yang memikat pelanggan bahkan sebelum mereka mencicipi produk Anda.
                 </p>
@@ -428,13 +447,15 @@
             </div>
         </section>
 
+        <!-- Keunggulan Section -->
         <section class="py-16" id="keunggulan">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6 max-w-7xl">
                 <div class="text-center mb-12">
                      <h2 class="text-3xl md:text-4xl font-bold section-title">Keunggulan Kami</h2>
                      <p class="mt-2 text-gray-600 section-subtitle">Alasan mengapa ratusan UMKM memercayakan kemasannya kepada kami.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center" id="benefit-grid">
+                    <!-- Keunggulan 1: Desain Gratis -->
                     <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300 fade-in-on-scroll" style="--stagger-delay: 0s;">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4 benefit-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -444,6 +465,7 @@
                         <h3 class="text-xl font-bold mb-2">Desain Suka-Suka GRATIS</h3>
                         <p class="text-gray-600">Tim desain siap membantu membuat kemasan menarik sesuai selera dan impian Anda.</p>
                     </div>
+                    <!-- Keunggulan 2: Cetak Jumlah Kecil -->
                     <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300 fade-in-on-scroll" style="--stagger-delay: 0.1s;">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4 benefit-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -453,6 +475,7 @@
                         <h3 class="text-xl font-bold mb-2">Bisa Cetak Jumlah Kecil</h3>
                         <p class="text-gray-600">Mulai dari 500 pcs, cocok untuk UMKM yang baru mulai merintis bisnis.</p>
                     </div>
+                    <!-- Keunggulan 3: Layanan Cepat -->
                     <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300 fade-in-on-scroll" style="--stagger-delay: 0.2s;">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4 benefit-icon">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -462,6 +485,7 @@
                         <h3 class="text-xl font-bold mb-2">Layanan Cepat</h3>
                         <p class="text-gray-600">Kami berdedikasi memberikan respons ramah dan proses cepat untuk kepuasan pelanggan.</p>
                     </div>
+                    <!-- Keunggulan 4: Dukungan UMKM -->
                     <div class="benefit-card bg-white p-8 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300 fade-in-on-scroll" style="--stagger-delay: 0.3s;">
                         <div class="bg-blue-100 text-blue-600 rounded-full h-20 w-20 flex items-center justify-center mx-auto mb-4 benefit-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -475,11 +499,11 @@
             </div>
         </section>
 
-        <!-- Video Showcase Section: DIPERBARUI -->
+        <!-- Video Showcase Section -->
         <section id="video-showcase" class="py-16 sm:py-24 bg-gray-100">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6 max-w-7xl">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold section-title">Kualitas dalam Setiap Detain</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold section-title">Kualitas dalam Setiap Detail</h2>
                     <p class="mt-2 text-gray-600 section-subtitle">Lihat bagaimana kami mengubah ide Anda menjadi kemasan yang sempurna.</p>
                 </div>
                 <!-- Video Container -->
@@ -495,14 +519,16 @@
                 </div>
             </div>
         </section>
-        
-        <section id="produk" class="bg-white py-20">
-            <div class="container mx-auto px-6">
+
+        <!-- Produk Section -->
+        <section id="produk" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Produk Kemasan Kami</h2>
                     <p class="mt-2 text-gray-600 section-subtitle">Berbagai pilihan kemasan untuk segala jenis kebutuhan bisnis Anda.</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6" id="product-grid">
+                    <!-- Card Produk 1 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0s;">
                         <div class="aspect-square">
                             <img src="img/lunchboxm.jpg" alt="Lunch Box" class="w-full h-full object-cover">
@@ -511,6 +537,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Lunch Box</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 2 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.05s;">
                         <div class="aspect-square">
                             <img src="img/taichan.jpg" alt="Taichan" class="w-full h-full object-cover">
@@ -519,6 +546,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Taichan</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 3 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.1s;">
                         <div class="aspect-square">
                             <img src="img/brownies.jpg" alt="Brownies" class="w-full h-full object-cover">
@@ -527,6 +555,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Brownies</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 4 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.15s;">
                         <div class="aspect-square">
                             <img src="img/donut1.jpg" alt="Donut 1pcs" class="w-full h-full object-cover">
@@ -535,6 +564,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Donut 1pcs</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 5 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.2s;">
                         <div class="aspect-square">
                             <img src="img/donut2.jpg" alt="Donut 2pcs" class="w-full h-full object-cover">
@@ -543,6 +573,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Donut 2pcs</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 6 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.25s;">
                         <div class="aspect-square">
                             <img src="img/donut3.jpg" alt="Donut 3pcs" class="w-full h-full object-cover">
@@ -551,6 +582,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Donut 3pcs</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 7 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.3s;">
                         <div class="aspect-square">
                             <img src="img/donut6.jpg" alt="Donut 6pcs" class="w-full h-full object-cover">
@@ -559,6 +591,7 @@
                             <h4 class="font-semibold text-center text-gray-700">Donut 6pcs</h4>
                         </div>
                     </div>
+                    <!-- Card Produk 8 -->
                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.35s;">
                         <div class="aspect-square">
                             <img src="img/fried.jpg" alt="Fried Chicken" class="w-full h-full object-cover">
@@ -567,7 +600,8 @@
                             <h4 class="font-semibold text-center text-gray-700">Fried Chicken</h4>
                         </div>
                     </div>
-                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.4s;">
+                     <!-- Card Produk 9 -->
+                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.4s;">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Roti+Bakar" alt="Dus Roti Bakar" class="w-full h-full object-cover">
                         </div>
@@ -575,7 +609,8 @@
                             <h4 class="font-semibold text-center text-gray-700">Dus Roti Bakar</h4>
                         </div>
                     </div>
-                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.45s;">
+                     <!-- Card Produk 10 -->
+                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.45s;">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Burger" alt="Dus Burger" class="w-full h-full object-cover">
                         </div>
@@ -583,7 +618,8 @@
                             <h4 class="font-semibold text-center text-gray-700">Dus Burger</h4>
                         </div>
                     </div>
-                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.5s;">
+                     <!-- Card Produk 11 -->
+                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.5s;">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+Kebab" alt="Dus Kebab" class="w-full h-full object-cover">
                         </div>
@@ -591,7 +627,8 @@
                             <h4 class="font-semibold text-center text-gray-700">Dus Kebab</h4>
                         </div>
                     </div>
-                     <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.55s;">
+                     <!-- Card Produk 12 -->
+                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 fade-in-on-scroll" style="--stagger-delay: 0.55s;">
                         <div class="aspect-square">
                             <img src="https://placehold.co/400x400/e2e8f0/334155?text=Dus+FNB" alt="Dus FNB" class="w-full h-full object-cover">
                         </div>
@@ -603,8 +640,9 @@
             </div>
         </section>
 
-        <section id="tentang" class="py-20">
-            <div class="container mx-auto px-6">
+        <!-- Tentang Kami & Portofolio Section -->
+        <section id="tentang" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Partner Terpercaya untuk Kemasan UMKM Anda</h2>
                     <p class="mt-2 text-gray-600 max-w-3xl mx-auto section-subtitle">Sejak 2022, Percetakan Arjuna berkomitmen menjadi solusi kemasan berkualitas bagi para pelaku UMKM kuliner. Kami percaya bahwa kemasan yang baik adalah investasi untuk meningkatkan citra brand dan kepercayaan pelanggan.</p>
@@ -631,20 +669,21 @@
                     </div>
                     <div class="about-card grid grid-cols-2 gap-6" id="stats-section">
                           <div class="text-center bg-white p-6 rounded-lg shadow-lg stat-card">
-                              <p class="text-4xl font-bold text-blue-600 counter-value" data-target="3+">0</p>
+                              <p class="text-4xl font-bold text-blue-600 counter-value" data-target="3">0</p>
                               <p class="text-gray-600 mt-1">Tahun Pengalaman</p>
                           </div>
                           <div class="text-center bg-white p-6 rounded-lg shadow-lg stat-card">
-                              <p class="text-4xl font-bold text-blue-600 counter-value" data-target="700+">0</p>
+                              <p class="text-4xl font-bold text-blue-600 counter-value" data-target="500">0</p>
                               <p class="text-gray-600 mt-1">Klien Puas</p>
                           </div>
                           <div class="text-center bg-white p-6 rounded-lg shadow-lg col-span-2 stat-card">
-                              <p class="text-4xl font-bold text-blue-600 counter-value" data-target="4.9/5">0</p>
+                              <p class="text-4xl font-bold text-blue-600 counter-value" data-target="4.9">0</p>
                               <p class="text-gray-600 mt-1">Rating Pelanggan</p>
                           </div>
                     </div>
                 </div>
 
+                <!-- Bagian untuk Herbal & Kosmetik -->
                 <div class="text-center my-16 py-12 px-6 bg-white rounded-lg shadow-lg border border-blue-100 premium-card">
                     <h3 class="text-2xl md:text-3xl font-bold mb-4">Kemasan Premium untuk Brand Herbal & Kosmetik Anda</h3>
                     <p class="mt-4 text-gray-600 max-w-4xl mx-auto text-base md:text-lg">
@@ -658,70 +697,79 @@
                     </p>
                 </div>
 
+                <!-- Klien Kami Section -->
                 <div class="text-center mb-12">
                     <h3 class="text-2xl font-bold section-title">Klien Kami</h3>
-                    <p class="mt-2 text-gray-600 section-subtitle">Kami bangga menjadi partner bagi berbagai brand untuk tumbuh bersama. Silahkan klik brand yang tertera untuk melihat produk kemasan Percetakan Arjuna.</p>
+                    <p class="mt-2 text-gray-600 section-subtitle">Kami bangga menjadi partner bagi berbagai brand untuk tumbuh bersama.</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+                    <!-- Klien 1 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/branda.jpg" alt="Logo Brand Klien A">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+A" alt="Logo Brand Klien A">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/e0f2fe/0284c7?text=Produk+A" alt="Produk Brand A">
                         </div>
                     </div>
+                    <!-- Klien 2 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brandb.jpg" alt="Logo Brand Klien B">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+B" alt="Logo Brand Klien B">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/fefce8/a16207?text=Produk+B" alt="Produk Brand B">
                         </div>
                     </div>
+                    <!-- Klien 3 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brandc.jpg" alt="Logo Brand Klien C">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+C" alt="Logo Brand Klien C">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/ecfccb/4d7c0f?text=Produk+C" alt="Produk Brand C">
                         </div>
                     </div>
+                    <!-- Klien 4 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brandd.jpg" alt="Logo Brand Klien D">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+D" alt="Logo Brand Klien D">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/fee2e2/991b1b?text=Produk+D" alt="Produk Brand D">
                         </div>
                     </div>
+                    <!-- Klien 5 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brande.jpg" alt="Logo Brand Klien E">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+E" alt="Logo Brand Klien E">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/f3e8ff/581c87?text=Produk+E" alt="Produk Brand E">
                         </div>
                     </div>
+                    <!-- Klien 6 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brandf.jpg" alt="Logo Brand Klien F">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+F" alt="Logo Brand Klien F">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/fff7ed/c2410c?text=Produk+F" alt="Produk Brand F">
                         </div>
                     </div>
+                    <!-- Klien 7 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brandg.jpg" alt="Logo Brand Klien G">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+G" alt="Logo Brand Klien G">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/ecfeff/0e7490?text=Produk+G" alt="Produk Brand G">
                         </div>
                     </div>
+                    <!-- Klien 8 -->
                     <div class="client-card bg-white rounded-lg shadow-md aspect-square">
                         <div class="client-logo">
-                            <img src="img/brandh.jpg" alt="Logo Brand Klien H">
+                            <img src="https://placehold.co/400x400/e2e8f0/334155?text=Brand+H" alt="Logo Brand Klien H">
                         </div>
                         <div class="client-product">
                             <img src="https://placehold.co/400x400/f0f9ff/0ea5e9?text=Produk+H" alt="Produk Brand H">
@@ -731,8 +779,9 @@
             </div>
         </section>
 
+        <!-- Kontak & CTA Section -->
         <section id="kontak" class="bg-blue-600 text-white">
-            <div class="container mx-auto px-6 py-20 text-center">
+            <div class="container mx-auto px-6 py-20 text-center max-w-7xl">
                 <h2 class="text-3xl md:text-4xl font-bold">Siap Meningkatkan Nilai Jual Produk Anda?</h2>
                 <p class="mt-4 text-lg text-blue-100 max-w-3xl mx-auto">
                     Kemasan bukan hanya pembungkus, tapi cerminan kualitas brand Anda. Jangan biarkan produk hebat Anda tampil biasa saja. Tim kami siap membantu Anda membuat desain yang menarik perhatian dan meningkatkan penjualan.
@@ -751,8 +800,9 @@
             </div>
         </section>
 
+        <!-- Google Maps Section -->
         <section id="lokasi" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6 max-w-7xl">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold section-title">Temukan Lokasi Kami</h2>
                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto section-subtitle">
@@ -767,8 +817,9 @@
 
     </main>
 
+    <!-- Footer -->
     <footer class="bg-gray-800 text-white">
-        <div class="container mx-auto px-6 py-8">
+        <div class="container mx-auto px-6 py-8 max-w-7xl">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="text-center md:text-left mb-4 md:mb-0">
                     <h3 class="text-xl font-bold">Percetakan Arjuna</h3>
@@ -786,6 +837,7 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
     <button id="to-top-button" title="Go to top"
             class="hidden fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold transition-all duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -793,6 +845,7 @@
         </svg>
     </button>
 
+    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/6282226903074?text=Halo%20Percetakan%20Arjuna,%20saya%20tertarik%20dengan%20layanan%20Anda." target="_blank" title="Chat di WhatsApp"
        class="fixed z-50 bottom-10 left-10 p-4 w-16 h-16 rounded-full shadow-lg bg-green-500 hover:bg-green-600 text-white flex items-center justify-center transition-transform duration-300 hover:scale-110 floating-whatsapp">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
@@ -800,6 +853,7 @@
         </svg>
     </a>
 
+    <!-- Modal untuk pesan kesalahan -->
     <div id="modal-container" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-[999] hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl text-center">
             <p class="text-gray-800 text-lg font-semibold mb-4">Mohon maaf, aksi penyalinan konten tidak diizinkan.</p>
@@ -808,13 +862,12 @@
     </div>
 
     <script>
-        // --- SCRIPT SUDAH DIPERBAIKI ---
+        // --- SCRIPT UTAMA ---
 
         // Script untuk Animasi Hero Text (Kata per Kata)
         const heroTitleContainer = document.getElementById('hero-title-container');
-        // Pisahkan teks menjadi beberapa bagian logis untuk menjaga struktur HTML
         const heroTextParts = [
-            'Wujudkan ',
+            'Wujudkan',
             '<span class="text-blue-600 hero-title-highlight">Kemasan Impian</span>',
             'Bisnis Anda'
         ];
@@ -822,14 +875,11 @@
         function animateHeroText() {
             heroTitleContainer.innerHTML = '';
             heroTextParts.forEach((part, index) => {
-                // Membuat elemen span untuk setiap bagian teks
                 const span = document.createElement('span');
-                span.classList.add('hero-text-word'); // Menggunakan class animasi yang sama
-                span.innerHTML = part + ' '; // Menambahkan konten bagian dan spasi
-                span.style.transitionDelay = `${index * 0.2}s`; // Sedikit perlambat delay agar lebih elegan
+                span.classList.add('hero-text-word');
+                span.innerHTML = part + ' ';
+                span.style.transitionDelay = `${index * 0.2}s`;
                 heroTitleContainer.appendChild(span);
-
-                // Memicu animasi
                 setTimeout(() => {
                     span.style.opacity = '1';
                     span.style.transform = 'translateY(0)';
@@ -878,21 +928,17 @@
                 if (existingRipple) {
                     existingRipple.remove();
                 }
-
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-
                 ripple.style.left = `${x}px`;
                 ripple.style.top = `${y}px`;
                 const size = Math.max(rect.width, rect.height) * 2;
                 ripple.style.width = `${size}px`;
                 ripple.style.height = `${size}px`;
-
                 ripple.classList.add('ripple');
                 this.appendChild(ripple);
-
                 ripple.addEventListener('animationend', () => {
                     ripple.remove();
                 });
@@ -931,9 +977,8 @@
 
         const appearOnScroll = new IntersectionObserver(function(entries, observer) {
             entries.forEach(entry => {
-                const delay = parseFloat(entry.target.style.getPropertyValue('--stagger-delay'));
+                const delay = parseFloat(entry.target.style.getPropertyValue('--stagger-delay')) || 0;
                 if (entry.isIntersecting) {
-                    // Hanya tambahkan is-visible setelah delay
                     setTimeout(() => {
                         entry.target.classList.add('is-visible');
                     }, delay * 1000); 
@@ -957,7 +1002,6 @@
             let start = 0;
             const duration = 2000;
             const startTimestamp = performance.now();
-
             const isFloat = target % 1 !== 0;
 
             const step = (timestamp) => {
@@ -1028,6 +1072,19 @@
             observer.observe(section);
         });
         
+        // Script untuk memutar ikon saat diklik
+        document.querySelectorAll('.benefit-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+                // Tambahkan kelas untuk memutar
+                icon.classList.add('is-spinning');
+                
+                // Hapus kelas setelah animasi selesai (500ms, sesuai durasi transisi di CSS)
+                setTimeout(() => {
+                    icon.classList.remove('is-spinning');
+                }, 500);
+            });
+        });
+
         // Panggil Hero Text Animation saat dokumen siap
         window.addEventListener('load', animateHeroText);
 
@@ -1035,4 +1092,3 @@
 
 </body>
 </html>
-
