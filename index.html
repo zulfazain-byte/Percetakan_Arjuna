@@ -403,7 +403,7 @@
             font-weight: 600;
             color: #374151;
         }
-        input[type="text"], select, input[type="range"] {
+        input[type="text"], input[type="number"], select, input[type="range"] {
             width: 100%;
             padding: 0.5rem;
             border: 1px solid #d1d5db;
@@ -457,6 +457,22 @@
         .modal {
              transition: opacity 0.3s ease-in-out;
         }
+        
+        #ar-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 999px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 999;
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -596,14 +612,25 @@
                     <div class="md:col-span-1 bg-white rounded-lg shadow-lg overflow-hidden">
                         <!-- Accordion for controls -->
                         <div id="accordion-container">
-                             <!-- Pengaturan Dasar -->
+                             <!-- Dimensi Kustom -->
                             <button class="accordion-button active">
-                                <span>Pengaturan Dasar</span>
+                                <span>Dimensi Kustom (cm)</span>
                                 <svg class="w-5 h-5 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
                             <div class="accordion-content" style="display: block;">
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div><label for="custom-width" class="control-label">Lebar</label><input type="number" id="custom-width" value="20" min="5" max="50"></div>
+                                    <div><label for="custom-height" class="control-label">Tinggi</label><input type="number" id="custom-height" value="12" min="5" max="50"></div>
+                                    <div><label for="custom-depth" class="control-label">Panjang</label><input type="number" id="custom-depth" value="15" min="5" max="50"></div>
+                                </div>
+                            </div>
+                            <!-- Pengaturan Material -->
+                             <button class="accordion-button">
+                                <span>Pengaturan Material</span>
+                                <svg class="w-5 h-5 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
                                 <div class="space-y-4">
-                                    <div><label for="box-model-select" class="control-label">Pilih Model</label><select id="box-model-select"><option value="lunchBox">Lunch Box</option><option value="donutBox">Dus Donat</option><option value="tallBox">Dus Produk Jangkung</option></select></div>
                                     <div><label for="material-select" class="control-label">Pilih Material</label><select id="material-select"><option value="ivory">Ivory / Art Carton (Putih)</option><option value="kraft">Kraft (Coklat)</option><option value="duplex">Duplex (Abu-abu)</option></select></div>
                                     <div>
                                         <label for="finishing-select" class="control-label">Pilih Finishing (Laminasi)</label>
@@ -677,9 +704,14 @@
                     <!-- Canvas Viewer -->
                     <div class="md:col-span-2 relative">
                         <div id="mockup-canvas-container" class="shadow-inner"></div>
-                         <button id="animate-box-btn" class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white transition" title="Animasi Buka/Tutup">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0l7-4 7 4" /></svg>
-                        </button>
+                         <div class="absolute top-4 right-4 flex space-x-2">
+                            <button id="animate-box-btn" class="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white transition" title="Animasi Buka/Tutup">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0l7-4 7 4" /></svg>
+                            </button>
+                             <button id="ar-button" class="hidden bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white transition" title="Lihat di Ruangan Anda (AR)">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -969,15 +1001,14 @@
             // --- SCRIPT 3D MOCKUP VIEWER ---
             const mockupSection = document.getElementById('mockup-viewer');
             if (mockupSection) {
-                const ui = { container: document.getElementById('mockup-canvas-container'), modelSelect: document.getElementById('box-model-select'), materialSelect: document.getElementById('material-select'), finishingSelect: document.getElementById('finishing-select'), sideColorPicker: document.getElementById('side-color-picker'), contentSideSelect: document.getElementById('content-side-select'), contentTypeRadios: document.querySelectorAll('input[name="content-type"]'), contentControls: document.getElementById('content-controls-container'), logoControls: document.getElementById('logo-controls-container'), textControls: document.getElementById('text-controls-container'), logoUpload: document.getElementById('logo-upload'), logoScaleSlider: document.getElementById('logo-scale-slider'), logoScaleValue: document.getElementById('logo-scale-value'), textInput: document.getElementById('text-input'), fontSelect: document.getElementById('font-select'), fontSizeSlider: document.getElementById('font-size-slider'), fontSizeValue: document.getElementById('font-size-value'), textColorPicker: document.getElementById('text-color-picker'), premiumFinishSelect: document.getElementById('premium-finish-select'), contentOffsetX: document.getElementById('content-offset-x'), contentOffsetY: document.getElementById('content-offset-y'), offsetXValue: document.getElementById('offset-x-value'), offsetYValue: document.getElementById('offset-y-value'), sceneBgSelect: document.getElementById('scene-bg-select'), lightIntensitySlider: document.getElementById('light-intensity-slider'), lightIntensityValue: document.getElementById('light-intensity-value'), animateBoxBtn: document.getElementById('animate-box-btn'), quoteButton: document.getElementById('quote-button'), saveButton: document.getElementById('save-button'), resetButton: document.getElementById('reset-button'), loadModal: document.getElementById('load-session-modal'), loadYesBtn: document.getElementById('load-yes-btn'), loadNoBtn: document.getElementById('load-no-btn'), quoteModal: document.getElementById('quote-modal'), quoteForm: document.getElementById('quote-form'), quoteCloseBtn: document.getElementById('quote-close-btn'), };
+                const ui = { container: document.getElementById('mockup-canvas-container'), customWidth: document.getElementById('custom-width'), customHeight: document.getElementById('custom-height'), customDepth: document.getElementById('custom-depth'), materialSelect: document.getElementById('material-select'), finishingSelect: document.getElementById('finishing-select'), sideColorPicker: document.getElementById('side-color-picker'), contentSideSelect: document.getElementById('content-side-select'), contentTypeRadios: document.querySelectorAll('input[name="content-type"]'), contentControls: document.getElementById('content-controls-container'), logoControls: document.getElementById('logo-controls-container'), textControls: document.getElementById('text-controls-container'), logoUpload: document.getElementById('logo-upload'), logoScaleSlider: document.getElementById('logo-scale-slider'), logoScaleValue: document.getElementById('logo-scale-value'), textInput: document.getElementById('text-input'), fontSelect: document.getElementById('font-select'), fontSizeSlider: document.getElementById('font-size-slider'), fontSizeValue: document.getElementById('font-size-value'), textColorPicker: document.getElementById('text-color-picker'), premiumFinishSelect: document.getElementById('premium-finish-select'), contentOffsetX: document.getElementById('content-offset-x'), contentOffsetY: document.getElementById('content-offset-y'), offsetXValue: document.getElementById('offset-x-value'), offsetYValue: document.getElementById('offset-y-value'), sceneBgSelect: document.getElementById('scene-bg-select'), lightIntensitySlider: document.getElementById('light-intensity-slider'), lightIntensityValue: document.getElementById('light-intensity-value'), animateBoxBtn: document.getElementById('animate-box-btn'), arButton: document.getElementById('ar-button'), quoteButton: document.getElementById('quote-button'), saveButton: document.getElementById('save-button'), resetButton: document.getElementById('reset-button'), loadModal: document.getElementById('load-session-modal'), loadYesBtn: document.getElementById('load-yes-btn'), loadNoBtn: document.getElementById('load-no-btn'), quoteModal: document.getElementById('quote-modal'), quoteForm: document.getElementById('quote-form'), quoteCloseBtn: document.getElementById('quote-close-btn'), };
                 let scene, camera, renderer, boxGroup, ambientLight, directionalLight, envMap;
+                let controller, reticle;
                 let textures = {};
                 const sideNames = ["Kanan", "Kiri", "Atas", "Bawah", "Depan", "Belakang"];
                 
-                const defaultState = { model: 'lunchBox', material: 'ivory', finishing: 'standar', lightIntensity: 1.0, sceneBackground: '#f0f4f8', sideProperties: sideNames.map(() => ({ color: '#ffffff', contentType: 'none', premiumFinish: 'none', logoScale: 1.0, text: 'Teks Anda', font: 'Arial', fontSize: 48, textColor: '#333333', offsetX: 0, offsetY: 0 })) };
+                const defaultState = { width: 20, height: 12, depth: 15, material: 'ivory', finishing: 'standar', lightIntensity: 1.0, sceneBackground: '#f0f4f8', sideProperties: sideNames.map(() => ({ color: '#ffffff', contentType: 'none', premiumFinish: 'none', logoScale: 1.0, text: 'Teks Anda', font: 'Arial', fontSize: 48, textColor: '#333333', offsetX: 0, offsetY: 0 })) };
                 let state = JSON.parse(JSON.stringify(defaultState));
-
-                const boxModels = { lunchBox: { w: 2.5, h: 1.5, d: 1.8 }, donutBox: { w: 3, h: 0.8, d: 3 }, tallBox: { w: 1.5, h: 3, d: 1.5 } };
                 
                 function init3D() {
                     scene = new THREE.Scene();
@@ -994,19 +1025,13 @@
                     // Environment Map for reflections
                     const path = 'https://threejs.org/examples/textures/cube/pisa/';
                     const format = '.png';
-                    const urls = [
-                        path + 'px' + format, path + 'nx' + format,
-                        path + 'py' + format, path + 'ny' + format,
-                        path + 'pz' + format, path + 'nz' + format
-                    ];
+                    const urls = [ path + 'px' + format, path + 'nx' + format, path + 'py' + format, path + 'ny' + format, path + 'pz' + format, path + 'nz' + format ];
                     envMap = new THREE.CubeTextureLoader().load(urls);
                     
                     const loader = new THREE.TextureLoader();
                     textures.logo = loader.load('https://placehold.co/300x200/e2e8f0/334155?text=Logo+Anda');
                     ['kraft', 'duplex', 'texture-wood', 'texture-marble'].forEach(key => {
-                        const url = key.includes('texture') ? 
-                            (key === 'texture-wood' ? 'https://www.transparenttextures.com/patterns/wood-pattern.png' : 'https://www.transparenttextures.com/patterns/clean-gray-paper.png') :
-                            (key === 'kraft' ? 'https://www.transparenttextures.com/patterns/textured-paper.png' : 'https://www.transparenttextures.com/patterns/concrete-wall-2.png');
+                        const url = key.includes('texture') ? (key === 'texture-wood' ? 'https://www.transparenttextures.com/patterns/wood-pattern.png' : 'https://www.transparenttextures.com/patterns/clean-gray-paper.png') : (key === 'kraft' ? 'https://www.transparenttextures.com/patterns/textured-paper.png' : 'https://www.transparenttextures.com/patterns/concrete-wall-2.png');
                         textures[key] = loader.load(url, t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
                     });
                     
@@ -1014,7 +1039,8 @@
                     checkForSavedState();
                     updateBoxModel();
                     setupControls();
-                    animate();
+                    setupAR();
+                    renderer.setAnimationLoop(renderLoop);
                 }
                 
                 function generateSideSelectors() { ui.contentSideSelect.innerHTML = sideNames.map((name, i) => `<option value="${i}">${name}</option>`).join(''); }
@@ -1039,7 +1065,9 @@
 
                 function updateBoxModel() {
                     if (boxGroup) scene.remove(boxGroup);
-                    const { w, h, d } = boxModels[state.model];
+                    const w = (state.width || defaultState.width) / 10;
+                    const h = (state.height || defaultState.height) / 10;
+                    const d = (state.depth || defaultState.depth) / 10;
                     boxGroup = new THREE.Group();
                     
                     const createMaterial = () => new THREE.MeshStandardMaterial({ envMap: envMap, side: THREE.DoubleSide });
@@ -1185,35 +1213,95 @@
                     };
 
                     // Mouse Events
-                    ui.container.addEventListener('mousedown', (e) => {
-                        onPointerDown(e.clientX, e.clientY);
-                    });
-                    ui.container.addEventListener('mousemove', (e) => {
-                        onPointerMove(e.clientX, e.clientY);
-                    });
+                    ui.container.addEventListener('mousedown', (e) => onPointerDown(e.clientX, e.clientY));
+                    ui.container.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY));
                     ui.container.addEventListener('mouseup', onPointerUp);
                     ui.container.addEventListener('mouseleave', onPointerUp);
 
                     // Touch Events
-                    ui.container.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        onPointerDown(touch.clientX, touch.clientY);
-                    }, { passive: false });
-
-                    ui.container.addEventListener('touchmove', (e) => {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        onPointerMove(touch.clientX, touch.clientY);
-                    }, { passive: false });
-
+                    ui.container.addEventListener('touchstart', (e) => { e.preventDefault(); const touch = e.touches[0]; onPointerDown(touch.clientX, touch.clientY); }, { passive: false });
+                    ui.container.addEventListener('touchmove', (e) => { e.preventDefault(); const touch = e.touches[0]; onPointerMove(touch.clientX, touch.clientY); }, { passive: false });
                     ui.container.addEventListener('touchend', onPointerUp);
                 }
 
-                function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
+                let hitTestSource = null;
+                let hitTestSourceRequested = false;
+
+                function setupAR() {
+                    if ('xr' in navigator) {
+                        navigator.xr.isSessionSupported('immersive-ar', { requiredFeatures: ['hit-test'] }).then((supported) => {
+                            if (supported) {
+                                ui.arButton.classList.remove('hidden');
+                                ui.arButton.addEventListener('click', () => {
+                                    const sessionInit = { requiredFeatures: ['hit-test'] };
+                                    navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
+                                });
+                            }
+                        });
+                    }
+                }
+
+                function onSessionStarted(session) {
+                    renderer.xr.setReferenceSpaceType('local');
+                    renderer.xr.setSession(session);
+                    boxGroup.visible = false;
+
+                    reticle = new THREE.Mesh(
+                        new THREE.RingGeometry(0.05, 0.07, 32).rotateX(-Math.PI / 2),
+                        new THREE.MeshBasicMaterial()
+                    );
+                    reticle.matrixAutoUpdate = false;
+                    reticle.visible = false;
+                    scene.add(reticle);
+
+                    session.addEventListener('select', onSelect);
+                }
+
+                function onSelect() {
+                    if (reticle.visible) {
+                        const clone = boxGroup.clone();
+                        clone.visible = true;
+                        clone.position.setFromMatrixPosition(reticle.matrix);
+                        clone.scale.set(1/10, 1/10, 1/10); // Scale down to meters
+                        scene.add(clone);
+                    }
+                }
+                
+                function renderLoop(timestamp, frame) {
+                    if (renderer.xr.isPresenting) {
+                        const referenceSpace = renderer.xr.getReferenceSpace();
+                        const session = renderer.xr.getSession();
+
+                        if (hitTestSourceRequested === false) {
+                            session.requestReferenceSpace('viewer').then((referenceSpace) => {
+                                session.requestHitTestSource({ space: referenceSpace }).then((source) => {
+                                    hitTestSource = source;
+                                });
+                            });
+                            session.addEventListener('end', () => {
+                                hitTestSourceRequested = false;
+                                hitTestSource = null;
+                                boxGroup.visible = true; // Show main box again
+                            });
+                            hitTestSourceRequested = true;
+                        }
+
+                        if (hitTestSource && frame) {
+                            const hitTestResults = frame.getHitTestResults(hitTestSource);
+                            if (hitTestResults.length) {
+                                const hit = hitTestResults[0];
+                                reticle.visible = true;
+                                reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
+                            } else {
+                                reticle.visible = false;
+                            }
+                        }
+                    }
+                    renderer.render(scene, camera);
+                }
 
                 function updateUIFromState() {
-                    ui.modelSelect.value = state.model; ui.materialSelect.value = state.material; ui.finishingSelect.value = state.finishing; ui.sceneBgSelect.value = state.sceneBackground; ui.lightIntensitySlider.value = state.lightIntensity; ui.lightIntensityValue.textContent = Math.round(state.lightIntensity * 100);
+                    ui.customWidth.value = state.width; ui.customHeight.value = state.height; ui.customDepth.value = state.depth; ui.materialSelect.value = state.material; ui.finishingSelect.value = state.finishing; ui.sceneBgSelect.value = state.sceneBackground; ui.lightIntensitySlider.value = state.lightIntensity; ui.lightIntensityValue.textContent = Math.round(state.lightIntensity * 100);
                     const sideProps = state.sideProperties[parseInt(ui.contentSideSelect.value)];
                     ui.sideColorPicker.value = sideProps.color;
                     document.querySelector(`input[name="content-type"][value="${sideProps.contentType}"]`).checked = true;
@@ -1238,11 +1326,14 @@
                 function resetState() { if(confirm("Yakin ingin mereset semua kustomisasi?")){ localStorage.removeItem('arjunaMockupDesign'); state = JSON.parse(JSON.stringify(defaultState)); updateUIFromState(); updateBoxModel(); } }
 
                 // Event Listeners
-                ['modelSelect', 'materialSelect', 'finishingSelect', 'sceneBgSelect'].forEach(id => {
+                ['customWidth', 'customHeight', 'customDepth', 'materialSelect', 'finishingSelect', 'sceneBgSelect'].forEach(id => {
                     if (ui[id]) {
-                        ui[id].addEventListener('change', e => { 
-                            state[id.replace('Select','')] = e.target.value; 
-                            if (id === 'modelSelect') {
+                        const eventType = ui[id].tagName === 'SELECT' ? 'change' : 'input';
+                        ui[id].addEventListener(eventType, e => { 
+                            if(id.startsWith('custom')) state[id.replace('custom','').toLowerCase()] = parseFloat(e.target.value) || defaultState[id.replace('custom','').toLowerCase()];
+                            else state[id.replace('Select','')] = e.target.value; 
+
+                            if (id.startsWith('custom')) {
                                 updateBoxModel();
                             } else {
                                 updateAppearance();
@@ -1289,7 +1380,7 @@
                     const name = ui.quoteForm.querySelector('#quote-name').value;
                     const wa = ui.quoteForm.querySelector('#quote-whatsapp').value;
                     const qty = ui.quoteForm.querySelector('#quote-quantity').value;
-                    let specSummary = `Model: ${state.model}, Material: ${state.material}, Finishing: ${state.finishing}, Jumlah: ${qty} pcs.`;
+                    let specSummary = `Dimensi: ${state.width}x${state.depth}x${state.height} cm, Material: ${state.material}, Laminasi: ${state.finishing}, Jumlah: ${qty} pcs.`;
                     state.sideProperties.forEach((p, i) => { if (p.contentType !== 'none') specSummary += ` | Sisi ${sideNames[i]}: ${p.contentType} (${p.contentType==='text' ? p.text : 'logo'})` + (p.premiumFinish !== 'none' ? `, Finishing: ${p.premiumFinish}`: ''); });
                     const message = encodeURIComponent(`Halo Percetakan Arjuna, saya ${name} (${wa}) tertarik untuk membuat kemasan dengan spesifikasi berikut:\n\n${specSummary}\n\nMohon info penawaran harganya. Terima kasih.`);
                     window.open(`https://wa.me/6282226903074?text=${message}`, '_blank');
@@ -1304,4 +1395,3 @@
     </script>
 </body>
 </html>
-
