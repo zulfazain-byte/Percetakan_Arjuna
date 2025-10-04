@@ -1331,6 +1331,7 @@
                         const eventType = ui[id].tagName === 'SELECT' ? 'change' : 'input';
                         ui[id].addEventListener(eventType, e => { 
                             if(id.startsWith('custom')) state[id.replace('custom','').toLowerCase()] = parseFloat(e.target.value) || defaultState[id.replace('custom','').toLowerCase()];
+                            else if(id === 'sceneBgSelect') state.sceneBackground = e.target.value;
                             else state[id.replace('Select','')] = e.target.value; 
 
                             if (id.startsWith('custom')) {
