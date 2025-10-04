@@ -970,7 +970,7 @@
             const mockupSection = document.getElementById('mockup-viewer');
             if (mockupSection) {
                 const ui = { container: document.getElementById('mockup-canvas-container'), modelSelect: document.getElementById('box-model-select'), materialSelect: document.getElementById('material-select'), finishingSelect: document.getElementById('finishing-select'), sideColorPicker: document.getElementById('side-color-picker'), contentSideSelect: document.getElementById('content-side-select'), contentTypeRadios: document.querySelectorAll('input[name="content-type"]'), contentControls: document.getElementById('content-controls-container'), logoControls: document.getElementById('logo-controls-container'), textControls: document.getElementById('text-controls-container'), logoUpload: document.getElementById('logo-upload'), logoScaleSlider: document.getElementById('logo-scale-slider'), logoScaleValue: document.getElementById('logo-scale-value'), textInput: document.getElementById('text-input'), fontSelect: document.getElementById('font-select'), fontSizeSlider: document.getElementById('font-size-slider'), fontSizeValue: document.getElementById('font-size-value'), textColorPicker: document.getElementById('text-color-picker'), premiumFinishSelect: document.getElementById('premium-finish-select'), contentOffsetX: document.getElementById('content-offset-x'), contentOffsetY: document.getElementById('content-offset-y'), offsetXValue: document.getElementById('offset-x-value'), offsetYValue: document.getElementById('offset-y-value'), sceneBgSelect: document.getElementById('scene-bg-select'), lightIntensitySlider: document.getElementById('light-intensity-slider'), lightIntensityValue: document.getElementById('light-intensity-value'), animateBoxBtn: document.getElementById('animate-box-btn'), quoteButton: document.getElementById('quote-button'), saveButton: document.getElementById('save-button'), resetButton: document.getElementById('reset-button'), loadModal: document.getElementById('load-session-modal'), loadYesBtn: document.getElementById('load-yes-btn'), loadNoBtn: document.getElementById('load-no-btn'), quoteModal: document.getElementById('quote-modal'), quoteForm: document.getElementById('quote-form'), quoteCloseBtn: document.getElementById('quote-close-btn'), };
-                let scene, camera, renderer, boxGroup, ambientLight, directionalLight;
+                let scene, camera, renderer, boxGroup, ambientLight, directionalLight, envMap;
                 let textures = {};
                 const sideNames = ["Kanan", "Kiri", "Atas", "Bawah", "Depan", "Belakang"];
                 
@@ -986,9 +986,20 @@
                     camera.lookAt(0,0,0);
                     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: true });
                     renderer.setSize(ui.container.clientWidth, ui.container.clientHeight);
+                    renderer.setClearColor(0x000000, 0);
                     ui.container.appendChild(renderer.domElement);
                     ambientLight = new THREE.AmbientLight(0xffffff, 0.7); scene.add(ambientLight);
                     directionalLight = new THREE.DirectionalLight(0xffffff, 0.9); directionalLight.position.set(5, 10, 7.5); scene.add(directionalLight);
+                    
+                    // Environment Map for reflections
+                    const path = 'https://threejs.org/examples/textures/cube/pisa/';
+                    const format = '.png';
+                    const urls = [
+                        path + 'px' + format, path + 'nx' + format,
+                        path + 'py' + format, path + 'ny' + format,
+                        path + 'pz' + format, path + 'nz' + format
+                    ];
+                    envMap = new THREE.CubeTextureLoader().load(urls);
                     
                     const loader = new THREE.TextureLoader();
                     textures.logo = loader.load('https://placehold.co/300x200/e2e8f0/334155?text=Logo+Anda');
@@ -1030,21 +1041,22 @@
                     if (boxGroup) scene.remove(boxGroup);
                     const { w, h, d } = boxModels[state.model];
                     boxGroup = new THREE.Group();
-                    const materialConfig = { side: THREE.DoubleSide };
+                    
+                    const createMaterial = () => new THREE.MeshStandardMaterial({ envMap: envMap, side: THREE.DoubleSide });
 
-                    const base = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshStandardMaterial(materialConfig));
+                    const base = new THREE.Mesh(new THREE.PlaneGeometry(w, d), createMaterial());
                     base.rotation.x = -Math.PI / 2; base.position.y = -h / 2;
                     
-                    const back = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial(materialConfig));
+                    const back = new THREE.Mesh(new THREE.PlaneGeometry(w, h), createMaterial());
                     back.position.z = -d/2;
 
-                    const front = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial(materialConfig));
+                    const front = new THREE.Mesh(new THREE.PlaneGeometry(w, h), createMaterial());
                     front.position.z = d/2;
 
-                    const left = new THREE.Mesh(new THREE.PlaneGeometry(d, h), new THREE.MeshStandardMaterial(materialConfig));
+                    const left = new THREE.Mesh(new THREE.PlaneGeometry(d, h), createMaterial());
                     left.rotation.y = Math.PI/2; left.position.x = -w/2;
 
-                    const right = new THREE.Mesh(new THREE.PlaneGeometry(d, h), new THREE.MeshStandardMaterial(materialConfig));
+                    const right = new THREE.Mesh(new THREE.PlaneGeometry(d, h), createMaterial());
                     right.rotation.y = -Math.PI/2; right.position.x = w/2;
 
                     // Lid Group
@@ -1052,10 +1064,10 @@
                     lidGroup.position.y = h/2;
                     lidGroup.position.z = -d/2;
                     
-                    const lidTop = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshStandardMaterial(materialConfig));
+                    const lidTop = new THREE.Mesh(new THREE.PlaneGeometry(w, d), createMaterial());
                     lidTop.rotation.x = Math.PI/2; lidTop.position.y = 0; lidTop.position.z = d/2;
 
-                    const lidFlapFront = new THREE.Mesh(new THREE.PlaneGeometry(w, h * 0.2), new THREE.MeshStandardMaterial(materialConfig));
+                    const lidFlapFront = new THREE.Mesh(new THREE.PlaneGeometry(w, h * 0.2), createMaterial());
                     lidFlapFront.position.y = -h * 0.1; lidFlapFront.position.z = d;
 
                     lidGroup.add(lidTop, lidFlapFront);
@@ -1072,16 +1084,18 @@
                     const baseTexture = state.material === 'kraft' ? textures.kraft : state.material === 'duplex' ? textures.duplex : null;
                     if(baseTexture) baseTexture.repeat.set(3,3);
 
-                    const roughness = (state.finishing === 'glossy') ? 0.1 : (state.finishing === 'doff') ? 1.0 : 0.8;
+                    const roughness = (state.finishing === 'glossy') ? 0.1 : (state.finishing === 'doff') ? 0.9 : 0.7;
                     
                     if (state.sceneBackground.startsWith('#')) {
                         ui.container.style.backgroundImage = 'none';
                         ui.container.style.backgroundColor = state.sceneBackground;
+                        scene.background = new THREE.Color(state.sceneBackground);
                     } else {
                         ui.container.style.backgroundColor = 'transparent';
                         const textureKey = state.sceneBackground;
                         const url = textureKey === 'texture-wood' ? 'https://www.transparenttextures.com/patterns/wood-pattern.png' : 'https://www.transparenttextures.com/patterns/clean-gray-paper.png';
                         ui.container.style.backgroundImage = `url(${url})`;
+                        scene.background = null; 
                     }
 
                     ambientLight.intensity = 0.7 * state.lightIntensity;
@@ -1093,22 +1107,22 @@
                         const sideProps = state.sideProperties[i];
                         const material = mesh.material;
                         
-                        let contentTexture = null, bumpTexture = null;
+                        let contentTexture = null;
 
                         if (sideProps.contentType === 'logo') contentTexture = textures.logo;
                         else if (sideProps.contentType === 'text') contentTexture = createTextTexture(i);
                         
                         // Premium Finishes
-                        material.bumpMap = null; material.bumpScale = 1; material.metalness = 0;
+                        material.bumpMap = null; material.bumpScale = 1; material.metalness = 0; material.envMap = envMap;
+
                         if(sideProps.contentType !== 'none'){
                             if (sideProps.premiumFinish === 'emboss' || sideProps.premiumFinish === 'deboss'){
-                                bumpTexture = (sideProps.contentType === 'logo') ? textures.logo : createTextTexture(i, true);
-                                material.bumpMap = bumpTexture;
+                                material.bumpMap = (sideProps.contentType === 'logo') ? textures.logo : createTextTexture(i, true);
                                 material.bumpScale = sideProps.premiumFinish === 'emboss' ? 0.02 : -0.02;
                             } else if (sideProps.premiumFinish.startsWith('foil')){
                                 material.metalness = 1.0;
                                 material.roughness = 0.2;
-                                material.color.set(sideProps.premiumFinish === 'foilEmas' ? '#FFD700' : '#C0C0C0');
+                                material.color.set(sideProps.premiumFinish === 'foilEmas' ? '#FFD700' : '#E0E0E0');
                             }
                         }
 
@@ -1117,10 +1131,13 @@
                             contentTexture.repeat.set(1 / scale, 1 / scale);
                             contentTexture.offset.set(((1 - (1/scale)) / 2) - (sideProps.offsetX/100), ((1 - (1/scale)) / 2) + (sideProps.offsetY/100));
                         }
-
-                        material.roughness = roughness;
+                        
+                        if(!sideProps.premiumFinish.startsWith('foil')) {
+                            material.roughness = roughness;
+                            material.color.set(contentTexture ? 0xffffff : sideProps.color);
+                        }
+                        
                         material.map = contentTexture || baseTexture;
-                        if (!sideProps.premiumFinish.startsWith('foil')) material.color.set(contentTexture ? 0xffffff : sideProps.color);
                         material.needsUpdate = true;
                     });
                 }
@@ -1142,21 +1159,55 @@
                 }
 
                 function setupControls() {
-                    let isDragging = false, prev = {x:0, y:0};
-                    const onPointerDown = (x, y) => { isDragging = true; prev = {x, y}; };
-                    const onPointerUp = () => { isDragging = false; };
-                    const onPointerMove = (x, y) => { if (!isDragging || !boxGroup) return; boxGroup.rotation.y += (x - prev.x) * 0.01; boxGroup.rotation.x += (y - prev.y) * 0.01; prev = {x, y}; };
-                    
-                    ['mousedown', 'mouseup', 'mouseleave', 'mousemove', 'touchstart', 'touchend', 'touchmove'].forEach(evtName => {
-                        const isTouch = evtName.startsWith('touch');
-                        ui.container.addEventListener(evtName, e => {
-                            if (isTouch) e.preventDefault();
-                            const pointer = isTouch ? e.touches[0] || e.changedTouches[0] : e;
-                            if (evtName.endsWith('down')) onPointerDown(pointer.clientX, pointer.clientY);
-                            else if (evtName.endsWith('up') || evtName.endsWith('leave')) onPointerUp();
-                            else if (evtName.endsWith('move')) onPointerMove(pointer.clientX, pointer.clientY);
-                        }, { passive: !isTouch });
+                    let isDragging = false;
+                    let previousPointerPosition = { x: 0, y: 0 };
+
+                    const onPointerDown = (x, y) => {
+                        isDragging = true;
+                        previousPointerPosition = { x: x, y: y };
+                    };
+
+                    const onPointerMove = (x, y) => {
+                        if (!isDragging || !boxGroup) return;
+                        const deltaMove = {
+                            x: x - previousPointerPosition.x,
+                            y: y - previousPointerPosition.y
+                        };
+
+                        boxGroup.rotation.y += deltaMove.x * 0.01;
+                        boxGroup.rotation.x += deltaMove.y * 0.01;
+
+                        previousPointerPosition = { x: x, y: y };
+                    };
+
+                    const onPointerUp = () => {
+                        isDragging = false;
+                    };
+
+                    // Mouse Events
+                    ui.container.addEventListener('mousedown', (e) => {
+                        onPointerDown(e.clientX, e.clientY);
                     });
+                    ui.container.addEventListener('mousemove', (e) => {
+                        onPointerMove(e.clientX, e.clientY);
+                    });
+                    ui.container.addEventListener('mouseup', onPointerUp);
+                    ui.container.addEventListener('mouseleave', onPointerUp);
+
+                    // Touch Events
+                    ui.container.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        onPointerDown(touch.clientX, touch.clientY);
+                    }, { passive: false });
+
+                    ui.container.addEventListener('touchmove', (e) => {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        onPointerMove(touch.clientX, touch.clientY);
+                    }, { passive: false });
+
+                    ui.container.addEventListener('touchend', onPointerUp);
                 }
 
                 function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
@@ -1253,3 +1304,4 @@
     </script>
 </body>
 </html>
+
