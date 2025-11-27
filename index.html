@@ -22,6 +22,9 @@
 
     <!-- Three.js Library for 3D Viewer -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Canvas Confetti for Micro-interactions -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <!-- Post-processing and controls -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
@@ -447,7 +450,7 @@
         .accordion-content {
             padding: 1.5rem;
             background-color: white;
-            display: none;
+            /* Default terlihat untuk yang aktif, hidden diatur lewat class */
             border-bottom: 1px solid #e5e7eb;
             animation: slide-down 0.3s ease-out;
         }
@@ -476,6 +479,40 @@
             z-index: 999;
         }
 
+        /* --- TOAST NOTIFICATIONS STYLE --- */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            min-width: 250px;
+            background: white;
+            border-left: 4px solid;
+            padding: 16px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-out forwards;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .toast.success { border-color: #22c55e; }
+        .toast.error { border-color: #ef4444; }
+        .toast.info { border-color: #3b82f6; }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -493,6 +530,7 @@
                 <a href="#produk" class="nav-link text-gray-600 hover:text-blue-600" data-section="produk">Produk</a>
                 <a href="#mockup-viewer" class="nav-link text-gray-600 hover:text-blue-600" data-section="mockup-viewer">Pratinjau 3D</a>
                 <a href="#tentang" class="nav-link text-gray-600 hover:text-blue-600" data-section="tentang">Tentang Kami</a>
+                <a href="#faq" class="nav-link text-gray-600 hover:text-blue-600" data-section="faq">FAQ</a>
                 <a href="#kontak" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Hubungi Kami</a>
             </div>
             <!-- Tombol Menu Mobile -->
@@ -509,6 +547,7 @@
             <a href="#produk" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Produk</a>
             <a href="#mockup-viewer" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Pratinjau 3D</a>
             <a href="#tentang" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Tentang Kami</a>
+            <a href="#faq" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">FAQ</a>
             <a href="#kontak" class="block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">Hubungi Kami</a>
         </div>
     </header>
@@ -608,7 +647,7 @@
                                 <span>Ukuran & Presets</span>
                                 <svg class="w-5 h-5 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
-                            <div class="accordion-content" style="display: block;">
+                            <div class="accordion-content">
                                 <div class="space-y-4">
                                     <div>
                                         <label for="size-presets" class="control-label">Pilih Preset Ukuran</label>
@@ -632,7 +671,8 @@
                                 <span>Pengaturan Material & Lingkungan</span>
                                 <svg class="w-5 h-5 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
-                            <div class="accordion-content">
+                            <!-- IMPORTANT: Added 'hidden' class here for closed sections -->
+                            <div class="accordion-content hidden">
                                 <div class="space-y-4">
                                     <div><label for="material-select" class="control-label">Pilih Material</label><select id="material-select"><option value="ivory">Ivory / Art Carton (Putih)</option><option value="kraft">Kraft (Coklat)</option><option value="duplex">Duplex (Abu-abu)</option></select></div>
                                     <div>
@@ -660,7 +700,8 @@
                                 <span>Pengaturan Konten (Logo & Teks)</span>
                                 <svg class="w-5 h-5 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
-                            <div class="accordion-content">
+                            <!-- IMPORTANT: Added 'hidden' class here for closed sections -->
+                            <div class="accordion-content hidden">
                                 <p class="text-sm text-gray-500 mb-4">Klik langsung pada sisi kotak di pratinjau 3D untuk memilih dan mengeditnya.</p>
                                 <div class="space-y-4">
                                     <div><label class="control-label">Sisi yang Dipilih</label><select id="content-side-select" class="w-full"></select></div>
@@ -676,9 +717,6 @@
                                         <!-- Text Specific -->
                                         <div id="text-controls-container" class="hidden space-y-4">
                                             <div><label for="text-input" class="control-label">Isi Teks</label><input type="text" id="text-input" placeholder="Tuliskan Sesuatu..."></div>
-                                            <button id="gemini-tagline-btn" class="w-full text-sm bg-purple-100 text-purple-700 font-semibold py-2 px-4 rounded-lg hover:bg-purple-200 transition flex items-center justify-center">
-                                                ✨ Buat Tagline dengan AI
-                                            </button>
                                             <div><label for="font-select" class="control-label">Jenis Huruf</label><select id="font-select"><option>Poppins</option><option>Arial</option><option>Verdana</option><option>Georgia</option><option>Times New Roman</option></select></div><div><label for="font-size-slider" class="control-label">Ukuran Huruf: <span id="font-size-value">48</span></label><input id="font-size-slider" type="range" min="16" max="128" step="1" value="48"></div></div>
                                          <!-- Premium Finish -->
                                         <div>
@@ -699,15 +737,51 @@
                                 <span>Tampilan & Warna</span>
                                 <svg class="w-5 h-5 accordion-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
-                            <div class="accordion-content">
+                            <!-- IMPORTANT: Added 'hidden' class here for closed sections -->
+                            <div class="accordion-content hidden">
                                 <div class="space-y-4">
                                     <div><label class="control-label">Warna Sisi & Teks</label><div class="grid grid-cols-2 gap-2"><div><input id="side-color-picker" type="color" value="#ffffff" class="w-full h-10 p-1 border rounded-md"><label for="side-color-picker" class="text-sm text-center block mt-1">Sisi</label></div><div><input id="text-color-picker" type="color" value="#333333" class="w-full h-10 p-1 border rounded-md"><label for="text-color-picker" class="text-sm text-center block mt-1">Teks</label></div></div></div>
+                                    <div>
+                                        <label for="pattern-select" class="control-label">Pola Desain</label>
+                                        <select id="pattern-select">
+                                            <option value="none">Tidak Ada</option>
+                                            <option value="stripes">Garis-garis (Stripes)</option>
+                                            <option value="polkadots">Polkadot</option>
+                                            <option value="checkered">Kotak-kotak (Checkered)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="pattern-color-picker" class="control-label">Warna Pola</label>
+                                        <div class="flex items-center">
+                                            <input id="pattern-color-picker" type="color" value="#e0e0e0" class="w-10 h-10 p-1 border rounded-md mr-2">
+                                            <span class="text-sm text-gray-600">Pilih warna untuk motif pola</span>
+                                        </div>
+                                    </div>
                                     <div><label for="light-intensity-slider" class="control-label">Intensitas Cahaya: <span id="light-intensity-value">100</span>%</label><input id="light-intensity-slider" type="range" min="0.2" max="2.5" step="0.1" value="1.5"></div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Tombol Aksi -->
-                        <div class="p-4 bg-gray-50 space-y-2">
+                        <!-- Tombol Aksi & Fitur Baru -->
+                        <div class="p-4 bg-gray-50 space-y-4">
+                            <!-- Fitur Baru: Inspirasi Tema (Menggantikan Kalkulator Harga) -->
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm">
+                                <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-3">Inspirasi Tema Cepat</p>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="applyTheme('eco')" class="flex flex-col items-center justify-center p-2 rounded-md hover:bg-green-50 transition border border-transparent hover:border-green-200">
+                                        <div class="w-6 h-6 rounded-full bg-[#b08a5f] mb-1"></div>
+                                        <span class="text-[10px] font-medium text-gray-600">Natural</span>
+                                    </button>
+                                    <button onclick="applyTheme('luxury')" class="flex flex-col items-center justify-center p-2 rounded-md hover:bg-gray-50 transition border border-transparent hover:border-gray-200">
+                                        <div class="w-6 h-6 rounded-full bg-black mb-1 border border-gray-200"></div>
+                                        <span class="text-[10px] font-medium text-gray-600">Mewah</span>
+                                    </button>
+                                    <button onclick="applyTheme('fun')" class="flex flex-col items-center justify-center p-2 rounded-md hover:bg-pink-50 transition border border-transparent hover:border-pink-200">
+                                        <div class="w-6 h-6 rounded-full bg-pink-400 mb-1"></div>
+                                        <span class="text-[10px] font-medium text-gray-600">Ceria</span>
+                                    </button>
+                                </div>
+                            </div>
+
                              <button id="quote-button" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-full hover:bg-green-700 transition flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v5.05a2.5 2.5 0 014.9 0V8a1 1 0 00-1-1h-3z" /></svg>
                                 Minta Penawaran Harga
@@ -727,7 +801,6 @@
                     <div class="md:col-span-2 relative">
                         <div id="mockup-canvas-container" class="shadow-inner"></div>
                          <div class="absolute top-4 right-4 flex space-x-2">
-                            <!-- Removed Dieline View Button -->
                             <button id="animate-box-btn" class="bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white transition" title="Animasi Buka/Tutup">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0l7-4 7 4" /></svg>
                             </button>
@@ -792,6 +865,54 @@
             </div>
         </section>
 
+        <!-- FAQ Section (NEW) -->
+        <section id="faq" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold section-title">Pertanyaan Umum (FAQ)</h2>
+                    <p class="mt-2 text-gray-600 section-subtitle">Jawaban untuk pertanyaan yang sering diajukan pelanggan kami.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full px-6 py-4 bg-white text-left font-semibold hover:bg-gray-50 focus:outline-none">
+                            <span>Berapa minimal order (MOQ) di Percetakan Arjuna?</span>
+                            <svg class="w-5 h-5 accordion-arrow transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6 py-4 text-gray-600 hidden">
+                            Minimal pemesanan kami mulai dari 500 pcs untuk kemasan custom. Ini sangat cocok untuk UMKM yang baru memulai usaha dan tidak ingin menimbun stok terlalu banyak.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full px-6 py-4 bg-white text-left font-semibold hover:bg-gray-50 focus:outline-none">
+                            <span>Berapa lama proses produksi kemasan?</span>
+                            <svg class="w-5 h-5 accordion-arrow transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6 py-4 text-gray-600 hidden">
+                            Estimasi waktu produksi standar adalah 7-14 hari kerja setelah desain disetujui (ACC). Waktu bisa bervariasi tergantung antrian dan kompleksitas finishing (misal: hot foil atau emboss membutuhkan waktu tambahan).
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full px-6 py-4 bg-white text-left font-semibold hover:bg-gray-50 focus:outline-none">
+                            <span>Apakah bisa bantu desainkan kemasan?</span>
+                            <svg class="w-5 h-5 accordion-arrow transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6 py-4 text-gray-600 hidden">
+                            Tentu! Kami menyediakan layanan desain GRATIS untuk setiap pemesanan cetak kemasan. Tim desainer kami akan membantu mewujudkan visi brand Anda.
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full px-6 py-4 bg-white text-left font-semibold hover:bg-gray-50 focus:outline-none">
+                            <span>Apakah melayani pengiriman ke luar kota?</span>
+                            <svg class="w-5 h-5 accordion-arrow transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content px-6 py-4 text-gray-600 hidden">
+                            Ya, kami melayani pengiriman ke seluruh Indonesia menggunakan berbagai ekspedisi terpercaya (JNE, J&T, Cargo, dll) dengan packing aman.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Kontak & CTA Section -->
         <section id="kontak" class="bg-blue-600 text-white">
             <div class="container mx-auto px-6 py-20 text-center max-w-7xl">
@@ -852,25 +973,43 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.086l.001.004 1.64-5.993a.536.536 0 0 1 .524-.438h.004a.532.532 0 0 1 .433.26z"/></svg>
     </a>
 
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
     <!-- Modal untuk pesan kesalahan -->
     <div id="modal-container" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-[999] hidden"><div class="bg-white p-6 rounded-lg shadow-xl text-center"><p class="text-gray-800 text-lg font-semibold mb-4">Mohon maaf, aksi penyalinan konten tidak diizinkan.</p><button id="modal-close-btn" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Tutup</button></div></div>
     
     <!-- Modal untuk Load Session -->
     <div id="load-session-modal" class="hidden modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[1000] opacity-0"><div class="bg-white p-8 rounded-lg shadow-2xl text-center max-w-sm mx-4"><h3 class="text-xl font-bold mb-4">Desain Ditemukan</h3><p class="text-gray-600 mb-6">Kami menemukan desain yang telah Anda simpan sebelumnya. Apakah Anda ingin melanjutkannya?</p><div class="flex justify-center space-x-4"><button id="load-yes-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full hover:bg-blue-700 transition">Ya, Lanjutkan</button><button id="load-no-btn" class="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-full hover:bg-gray-300 transition">Mulai Baru</button></div></div></div>
 
-    <!-- Modal untuk Minta Penawaran -->
+    <!-- Modal untuk Minta Penawaran (Simplified) -->
     <div id="quote-modal" class="hidden modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[1000] opacity-0">
         <div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg mx-4 w-full">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-2xl font-bold">Minta Penawaran Harga</h3>
                 <button id="quote-close-btn" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
             </div>
-            <p class="text-gray-600 mb-6">Lengkapi data berikut untuk mengirimkan desain Anda langsung ke tim kami via WhatsApp.</p>
+            <p class="text-gray-600 mb-4">Lengkapi data berikut untuk konfirmasi pemesanan via WhatsApp.</p>
             <form id="quote-form" class="space-y-4">
                 <div><label for="quote-name" class="control-label">Nama Anda</label><input type="text" id="quote-name" required class="w-full"></div>
-                <div><label for="quote-whatsapp" class="control-label">No. WhatsApp (contoh: 628123456789)</label><input type="tel" id="quote-whatsapp" required class="w-full" placeholder="62..."></div>
-                <div><label for="quote-quantity" class="control-label">Jumlah Pesanan (pcs)</label><select id="quote-quantity" class="w-full"><option>500</option><option>1000</option><option>2000</option><option>5000+</option></select></div>
-                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-full hover:bg-green-700 transition">Kirim ke WhatsApp</button>
+                <div><label for="quote-whatsapp" class="control-label">No. WhatsApp</label><input type="tel" id="quote-whatsapp" required class="w-full" placeholder="62..."></div>
+                <div>
+                    <label for="quote-quantity" class="control-label">Jumlah Pesanan (pcs)</label>
+                    <select id="quote-quantity" class="w-full p-2 border rounded-md border-gray-300">
+                        <option value="500">500 pcs</option>
+                        <option value="1000">1.000 pcs</option>
+                        <option value="2000">2.000 pcs</option>
+                        <option value="5000">5.000 pcs</option>
+                        <option value="10000">10.000+ pcs</option>
+                    </select>
+                </div>
+                <div class="bg-gray-50 p-3 rounded text-sm text-gray-600">
+                    Detail spesifikasi desain akan otomatis terlampir saat Anda mengirim pesan.
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-full hover:bg-green-700 transition shadow-lg mt-4 flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.086l.001.004 1.64-5.993a.536.536 0 0 1 .524-.438h.004a.532.532 0 0 1 .433.26z"/></svg>
+                    Kirim Pesanan via WhatsApp
+                </button>
             </form>
         </div>
     </div>
@@ -1036,33 +1175,186 @@
                 });
             });
 
-            // Accordion Logic
+            // Accordion Logic (Shared for 3D Viewer & FAQ)
             document.querySelectorAll('.accordion-button').forEach(button => {
                 button.addEventListener('click', () => {
                     const content = button.nextElementSibling;
-                    const isActive = button.classList.contains('active');
-                    if (!isActive) {
-                       button.classList.add('active');
-                       content.style.display = 'block';
+                    const arrow = button.querySelector('.accordion-arrow');
+                    
+                    // Simple Toggle logic
+                    const isActive = !content.classList.contains('hidden');
+                    
+                    if (isActive) {
+                        content.classList.add('hidden');
+                        if(arrow) arrow.style.transform = 'rotate(0deg)';
                     } else {
-                       button.classList.remove('active');
-                       content.style.display = 'none';
+                        content.classList.remove('hidden');
+                        if(arrow) arrow.style.transform = 'rotate(180deg)';
                     }
                 });
             });
 
+            // --- TOAST NOTIFICATION FUNCTION ---
+            function showToast(message, type = 'success') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                
+                let icon = '';
+                if (type === 'success') icon = '<svg class="w-6 h-6 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+                else if (type === 'error') icon = '<svg class="w-6 h-6 text-red-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
+                else icon = '<svg class="w-6 h-6 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+
+                toast.innerHTML = `
+                    <div class="flex items-center">
+                        ${icon}
+                        <span class="font-medium text-gray-800">${message}</span>
+                    </div>
+                `;
+
+                container.appendChild(toast);
+
+                // Auto remove
+                setTimeout(() => {
+                    toast.style.animation = 'fadeOut 0.3s ease-out forwards';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
             // --- SCRIPT 3D MOCKUP VIEWER ---
             const mockupSection = document.getElementById('mockup-viewer');
             if (mockupSection && typeof THREE !== 'undefined' && typeof THREE.OrbitControls !== 'undefined') {
-                const ui = { container: document.getElementById('mockup-canvas-container'), sizePresets: document.getElementById('size-presets'), customWidth: document.getElementById('custom-width'), customHeight: document.getElementById('custom-height'), customDepth: document.getElementById('custom-depth'), materialSelect: document.getElementById('material-select'), finishingSelect: document.getElementById('finishing-select'), foodGradeLining: document.getElementById('food-grade-lining'), environmentSelect: document.getElementById('environment-select'), sideColorPicker: document.getElementById('side-color-picker'), contentSideSelect: document.getElementById('content-side-select'), contentTypeRadios: document.querySelectorAll('input[name="content-type"]'), contentControls: document.getElementById('content-controls-container'), logoControls: document.getElementById('logo-controls-container'), textControls: document.getElementById('text-controls-container'), logoUpload: document.getElementById('logo-upload'), logoScaleSlider: document.getElementById('logo-scale-slider'), logoScaleValue: document.getElementById('logo-scale-value'), textInput: document.getElementById('text-input'), fontSelect: document.getElementById('font-select'), fontSizeSlider: document.getElementById('font-size-slider'), fontSizeValue: document.getElementById('font-size-value'), textColorPicker: document.getElementById('text-color-picker'), premiumFinishSelect: document.getElementById('premium-finish-select'), contentOffsetX: document.getElementById('content-offset-x'), contentOffsetY: document.getElementById('content-offset-y'), offsetXValue: document.getElementById('offset-x-value'), offsetYValue: document.getElementById('offset-y-value'), lightIntensitySlider: document.getElementById('light-intensity-slider'), lightIntensityValue: document.getElementById('light-intensity-value'), animateBoxBtn: document.getElementById('animate-box-btn'), captureButton: document.getElementById('capture-button'), arButton: document.getElementById('ar-button'), quoteButton: document.getElementById('quote-button'), saveButton: document.getElementById('save-button'), resetButton: document.getElementById('reset-button'), loadModal: document.getElementById('load-session-modal'), loadYesBtn: document.getElementById('load-yes-btn'), loadNoBtn: document.getElementById('load-no-btn'), quoteModal: document.getElementById('quote-modal'), quoteForm: document.getElementById('quote-form'), quoteCloseBtn: document.getElementById('quote-close-btn'), geminiModal: document.getElementById('gemini-modal'), geminiCloseBtn: document.getElementById('gemini-close-btn'), geminiTaglineBtn: document.getElementById('gemini-tagline-btn'), geminiForm: document.getElementById('gemini-form'), geminiProductType: document.getElementById('gemini-product-type'), geminiPromptView: document.getElementById('gemini-prompt-view'), geminiResultsView: document.getElementById('gemini-results-view'), geminiLoading: document.getElementById('gemini-loading'), geminiResultsList: document.getElementById('gemini-results-list'), geminiBackBtn: document.getElementById('gemini-back-btn'), };
+                const ui = { 
+                    container: document.getElementById('mockup-canvas-container'), 
+                    sizePresets: document.getElementById('size-presets'), 
+                    customWidth: document.getElementById('custom-width'), 
+                    customHeight: document.getElementById('custom-height'), 
+                    customDepth: document.getElementById('custom-depth'), 
+                    materialSelect: document.getElementById('material-select'), 
+                    finishingSelect: document.getElementById('finishing-select'), 
+                    foodGradeLining: document.getElementById('food-grade-lining'), 
+                    environmentSelect: document.getElementById('environment-select'), 
+                    sideColorPicker: document.getElementById('side-color-picker'), 
+                    contentSideSelect: document.getElementById('content-side-select'), 
+                    contentTypeRadios: document.querySelectorAll('input[name="content-type"]'), 
+                    contentControls: document.getElementById('content-controls-container'), 
+                    logoControls: document.getElementById('logo-controls-container'), 
+                    textControls: document.getElementById('text-controls-container'), 
+                    logoUpload: document.getElementById('logo-upload'), 
+                    logoScaleSlider: document.getElementById('logo-scale-slider'), 
+                    logoScaleValue: document.getElementById('logo-scale-value'), 
+                    textInput: document.getElementById('text-input'), 
+                    fontSelect: document.getElementById('font-select'), 
+                    fontSizeSlider: document.getElementById('font-size-slider'), 
+                    fontSizeValue: document.getElementById('font-size-value'), 
+                    textColorPicker: document.getElementById('text-color-picker'), 
+                    premiumFinishSelect: document.getElementById('premium-finish-select'), 
+                    contentOffsetX: document.getElementById('content-offset-x'), 
+                    contentOffsetY: document.getElementById('content-offset-y'), 
+                    offsetXValue: document.getElementById('offset-x-value'), 
+                    offsetYValue: document.getElementById('offset-y-value'), 
+                    lightIntensitySlider: document.getElementById('light-intensity-slider'), 
+                    lightIntensityValue: document.getElementById('light-intensity-value'), 
+                    animateBoxBtn: document.getElementById('animate-box-btn'), 
+                    captureButton: document.getElementById('capture-button'), 
+                    arButton: document.getElementById('ar-button'), 
+                    quoteButton: document.getElementById('quote-button'), 
+                    saveButton: document.getElementById('save-button'), 
+                    resetButton: document.getElementById('reset-button'), 
+                    loadModal: document.getElementById('load-session-modal'), 
+                    loadYesBtn: document.getElementById('load-yes-btn'), 
+                    loadNoBtn: document.getElementById('load-no-btn'), 
+                    quoteModal: document.getElementById('quote-modal'), 
+                    quoteForm: document.getElementById('quote-form'), 
+                    quoteCloseBtn: document.getElementById('quote-close-btn'), 
+                    quoteQuantity: document.getElementById('quote-quantity'),
+                    patternSelect: document.getElementById('pattern-select'),
+                    patternColorPicker: document.getElementById('pattern-color-picker'),
+                    
+                    // Gemini UI elements
+                    geminiModal: document.getElementById('gemini-modal'), 
+                    geminiCloseBtn: document.getElementById('gemini-close-btn'), 
+                    geminiTaglineBtn: document.getElementById('gemini-tagline-btn'), 
+                    geminiForm: document.getElementById('gemini-form'), 
+                    geminiProductType: document.getElementById('gemini-product-type'), 
+                    geminiPromptView: document.getElementById('gemini-prompt-view'), 
+                    geminiResultsView: document.getElementById('gemini-results-view'), 
+                    geminiLoading: document.getElementById('gemini-loading'), 
+                    geminiResultsList: document.getElementById('gemini-results-list'), 
+                    geminiBackBtn: document.getElementById('gemini-back-btn'),
+                };
+                
                 let scene, camera, renderer, boxGroup, controls, envMap, groundPlane, composer, outlinePass, saoPass, lidPivot;
                 let textures = {};
                 const sideNames = ["Tutup Atas", "Dasar", "Depan", "Belakang", "Kanan", "Kiri"];
                 let boxParts = []; 
                 let selectedPart = null;
+                let logoImage = null; // Store loaded logo image element
                 
-                const defaultState = { width: 20, height: 7, depth: 12, material: 'ivory', finishing: 'standar', foodGradeLining: false, environment: 'studio', lightIntensity: 1.5, sideProperties: sideNames.map(() => ({ color: '#ffffff', contentType: 'none', premiumFinish: 'none', logoScale: 1.0, text: 'Teks Anda', font: 'Poppins', fontSize: 48, textColor: '#333333', offsetX: 0, offsetY: 0 })) };
+                // Initialize default state with new pattern properties
+                const defaultState = { 
+                    width: 20, 
+                    height: 7, 
+                    depth: 12, 
+                    material: 'ivory', 
+                    finishing: 'standar', 
+                    foodGradeLining: false, 
+                    environment: 'studio', 
+                    lightIntensity: 1.5, 
+                    sideProperties: sideNames.map(() => ({ 
+                        color: '#ffffff', 
+                        contentType: 'none', 
+                        premiumFinish: 'none', 
+                        logoScale: 1.0, 
+                        text: 'Teks Anda', 
+                        font: 'Poppins', 
+                        fontSize: 48, 
+                        textColor: '#333333', 
+                        offsetX: 0, 
+                        offsetY: 0,
+                        patternType: 'none',
+                        patternColor: '#e0e0e0'
+                    })) 
+                };
                 let state = JSON.parse(JSON.stringify(defaultState));
+
+                // --- THEME LOGIC ---
+                window.applyTheme = function(theme) {
+                    if (theme === 'eco') {
+                        state.material = 'kraft';
+                        state.finishing = 'standar';
+                        state.sideProperties.forEach(p => {
+                            p.color = '#b08a5f';
+                            p.patternType = 'none';
+                            p.textColor = '#333333';
+                            p.premiumFinish = 'none'; // Fix: Reset foil/emboss
+                        });
+                        showToast('Tema Natural diterapkan!', 'success');
+                    } else if (theme === 'luxury') {
+                        state.material = 'ivory';
+                        state.finishing = 'glossy';
+                        state.sideProperties.forEach(p => {
+                            p.color = '#1a1a1a'; // Black
+                            p.patternType = 'none';
+                            p.textColor = '#FFD700'; // Gold text
+                            p.premiumFinish = 'foilEmas';
+                        });
+                        showToast('Tema Mewah diterapkan!', 'success');
+                    } else if (theme === 'fun') {
+                        state.material = 'ivory';
+                        state.finishing = 'doff';
+                        state.sideProperties.forEach(p => {
+                            p.color = '#ffffff';
+                            p.patternType = 'polkadots';
+                            p.patternColor = '#f472b6'; // Pink dots
+                            p.textColor = '#333333';
+                            p.premiumFinish = 'none'; // Fix: Reset foil/emboss
+                        });
+                        showToast('Tema Ceria diterapkan!', 'success');
+                    }
+                    updateUIFromState();
+                    updateBoxModel();
+                };
                 
                 function init3D() {
                     scene = new THREE.Scene();
@@ -1123,9 +1415,12 @@
                     
                     const loader = new THREE.TextureLoader();
                     loader.setCrossOrigin(''); // Allow loading from other domains
-                    textures.logo = loader.load('https://placehold.co/300x200/e2e8f0/334155?text=Logo+Anda', t => { t.encoding = THREE.sRGBEncoding; });
+                    // Initialize with a placeholder, but we also want the image object for canvas drawing
+                    textures.logo = loader.load('https://placehold.co/300x200/e2e8f0/334155?text=Logo+Anda', t => { 
+                        t.encoding = THREE.sRGBEncoding; 
+                        logoImage = t.image; // Store initial logo image
+                    });
                     textures.wood = loader.load('https://threejs.org/examples/textures/hardwood2_diffuse.jpg', t => { t.encoding = THREE.sRGBEncoding; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(8, 8); updateAppearance()});
-                    // Removed texture-based materials, will use color
                     textures.kraft = null; 
                     textures.duplex = null;
 
@@ -1162,35 +1457,94 @@
                 
                 function generateSideSelectors() { ui.contentSideSelect.innerHTML = sideNames.map((name, i) => `<option value="${i}">${name}</option>`).join(''); }
 
-                function createTextTexture(sideIndex, forBumpMap = false) {
+                // New Unified Texture Generator (Pattern + Content)
+                function createSideTexture(sideIndex, forBumpMap = false) {
                     const props = state.sideProperties[sideIndex];
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    canvas.width = 512; canvas.height = 512;
+                    const size = 512;
+                    canvas.width = size; canvas.height = size;
                     
+                    // 1. Draw Background (Solid Color or Pattern)
                     if (!forBumpMap) {
-                        // FIX: Use state.material to determine background color
-                        let bgColor = props.color; // Default for ivory
-                        if (state.material === 'kraft') {
-                            bgColor = '#b08a5f'; // Kraft brown
-                        } else if (state.material === 'duplex') {
-                            bgColor = '#e0e0e0'; // Duplex grey
-                        }
+                        let bgColor = props.color;
+                        if (state.material === 'kraft') bgColor = '#b08a5f';
+                        else if (state.material === 'duplex') bgColor = '#e0e0e0';
+                        
                         ctx.fillStyle = bgColor;
-                        // END FIX
-                        ctx.fillRect(0, 0, 512, 512);
-                        ctx.fillStyle = props.textColor;
+                        ctx.fillRect(0, 0, size, size);
+
+                        // Draw Pattern if active
+                        if (props.patternType !== 'none') {
+                            drawPattern(ctx, size, size, props.patternType, props.patternColor);
+                        }
+                        
+                        ctx.fillStyle = props.textColor; // Prepare for text
                     } else {
-                        ctx.fillStyle = 'black'; ctx.fillRect(0,0,512,512);
+                        // For bump map: Black background, White content
+                        ctx.fillStyle = 'black'; 
+                        ctx.fillRect(0, 0, size, size);
                         ctx.fillStyle = 'white';
                     }
-                    ctx.font = `bold ${props.fontSize}px ${props.font}`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(props.text, 256 + (props.offsetX/100 * 256), 256 - (props.offsetY/100 * 256));
+
+                    // 2. Draw Content (Text or Logo)
+                    if (props.contentType === 'text') {
+                        ctx.font = `bold ${props.fontSize}px ${props.font}`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(props.text, size/2 + (props.offsetX/100 * size), size/2 - (props.offsetY/100 * size));
+                    } else if (props.contentType === 'logo' && logoImage) {
+                        const scale = props.logoScale;
+                        const imgW = logoImage.width;
+                        const imgH = logoImage.height;
+                        const aspect = imgW / imgH;
+                        let targetW = size * scale;
+                        let targetH = targetW / aspect;
+                        const x = (size - targetW) / 2 + (props.offsetX/100 * size);
+                        const y = (size - targetH) / 2 - (props.offsetY/100 * size); 
+                        ctx.drawImage(logoImage, x, y, targetW, targetH);
+                    }
+
                     const texture = new THREE.CanvasTexture(canvas);
                     texture.encoding = THREE.sRGBEncoding;
                     return texture;
+                }
+
+                // Helper to draw patterns
+                function drawPattern(ctx, w, h, type, color) {
+                    ctx.fillStyle = color;
+                    if (type === 'stripes') {
+                        const thickness = 20;
+                        const gap = 20;
+                        ctx.save();
+                        ctx.translate(w/2, h/2);
+                        ctx.rotate(Math.PI / 4); // Diagonal stripes
+                        ctx.translate(-w, -h); 
+                        for (let x = -w; x < w * 3; x += thickness + gap) {
+                            ctx.fillRect(x, -h, thickness, h * 3);
+                        }
+                        ctx.restore();
+                    } else if (type === 'polkadots') {
+                        const radius = 10;
+                        const spacing = 40;
+                        for (let x = 0; x < w; x += spacing) {
+                            for (let y = 0; y < h; y += spacing) {
+                                const offsetX = (y / spacing) % 2 === 0 ? 0 : spacing / 2;
+                                ctx.beginPath();
+                                ctx.arc(x + offsetX, y, radius, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        }
+                    } else if (type === 'checkered') {
+                        const size = 40;
+                        for (let x = 0; x < w; x += size) {
+                            for (let y = 0; y < h; y += size) {
+                                if (((x/size) + (y/size)) % 2 === 0) {
+                                    ctx.fillRect(x, y, size, size);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 function updateBoxModel() {
@@ -1202,10 +1556,23 @@
                     const h = (state.height || defaultState.height) / 10;
                     const d = (state.depth || defaultState.depth) / 10;
                     
+                    const thickness = 0.05; 
+
                     const createPart = (width, height, name) => {
-                        const geo = new THREE.PlaneGeometry(width, height);
-                        const mat = new THREE.MeshStandardMaterial({ envMap: envMap, side: THREE.DoubleSide });
-                        const part = new THREE.Mesh(geo, mat);
+                        const geo = new THREE.BoxGeometry(width, height, thickness);
+                        
+                        const coreColor = '#d2b48c'; 
+                        const coreMat = new THREE.MeshStandardMaterial({ color: coreColor, roughness: 1.0 });
+                        const faceMat = new THREE.MeshStandardMaterial({ envMap: envMap }); 
+                        const innerMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.8 }); 
+
+                        const materials = [
+                            coreMat, coreMat, coreMat, coreMat,
+                            faceMat, 
+                            innerMat 
+                        ];
+
+                        const part = new THREE.Mesh(geo, materials);
                         part.name = name;
                         part.castShadow = true;
                         part.receiveShadow = true;
@@ -1217,44 +1584,47 @@
                     
                     // Box Body
                     const bodyGroup = new THREE.Group();
+                    
                     const base = createPart(w, d, "Dasar");
-                    base.rotation.x = -Math.PI / 2;
-                    base.position.y = -h / 2;
+                    base.rotation.x = -Math.PI / 2; 
+                    base.position.y = -h / 2 + thickness/2;
 
                     const front = createPart(w, h, "Depan");
-                    front.position.z = d / 2;
+                    front.position.z = d / 2 - thickness/2; 
 
                     const back = createPart(w, h, "Belakang");
-                    back.rotation.y = Math.PI;
-                    back.position.z = -d / 2;
+                    back.rotation.y = Math.PI; 
+                    back.position.z = -d / 2 + thickness/2; 
 
-                    const left = createPart(d, h, "Kiri");
+                    const left = createPart(d - thickness*2, h, "Kiri"); 
                     left.rotation.y = -Math.PI / 2;
-                    left.position.x = -w / 2;
+                    left.position.x = -w / 2 + thickness/2;
                     
-                    const right = createPart(d, h, "Kanan");
+                    const right = createPart(d - thickness*2, h, "Kanan"); 
                     right.rotation.y = Math.PI / 2;
-                    right.position.x = w / 2;
+                    right.position.x = w / 2 - thickness/2;
 
                     bodyGroup.add(base, front, back, left, right);
                     
                     // Lid
                     const lid = createPart(w, d, "Tutup Atas");
-                    lid.rotation.x = Math.PI/2;
+                    lid.rotation.x = -Math.PI/2;
 
-                    // Lid Pivot (Hinge)
+                    // Lid Pivot
                     lidPivot = new THREE.Group();
                     lidPivot.add(lid);
-                    lid.position.z = d / 2; // Move lid forward so it pivots on its back edge
                     
-                    lidPivot.position.y = h / 2;      // Position the pivot at the top
-                    lidPivot.position.z = -d / 2;     // Position the pivot at the back
+                    lid.position.z = d / 2 - thickness/2; 
+                    lid.position.y = 0; 
+                    
+                    lidPivot.position.y = h / 2;      
+                    lidPivot.position.z = -d / 2;     
                     
                     boxGroup.add(bodyGroup, lidPivot);
-                    boxGroup.position.y = h / 2 + 0.001; // Lift the entire box to sit on the ground and avoid z-fighting
+                    
+                    boxGroup.position.y = h / 2 + 0.001; 
                     controls.target.set(0, h / 2, 0);
 
-                    // Simpan posisi & rotasi original
                     boxParts.forEach(part => {
                         part.userData.originalPos = part.position.clone();
                         part.userData.originalRot = part.rotation.clone();
@@ -1272,14 +1642,13 @@
                     const roughness = roughnessValues[state.finishing];
                     const envMapIntensity = state.finishing === 'glossy' ? 1.2 : state.finishing === 'standar' ? 0.6 : 0.2;
                     
-                    // Update environment
                     if(state.environment === 'studio') {
                         groundPlane.material.color.set(0xc8ced5);
                         groundPlane.material.map = null;
                         scene.background = new THREE.Color(0xdde2e8);
                     } else {
                         groundPlane.material.map = textures[state.environment];
-                        groundPlane.material.color.set(0xffffff); // Use texture's color
+                        groundPlane.material.color.set(0xffffff); 
                         scene.background = envMap;
                     }
                     groundPlane.material.needsUpdate = true;
@@ -1288,63 +1657,61 @@
                         const sideIndex = sideNames.indexOf(part.name);
                         if (sideIndex === -1) return;
                         
-                        const material = part.material;
+                        const outerMaterial = part.material[4]; 
+                        const innerMaterial = part.material[5]; 
+                        
                         const sideProps = state.sideProperties[sideIndex];
                         
-                        material.side = THREE.DoubleSide; // Ensure it's always double-sided
+                        let baseColor = sideProps.color; 
+                        if (state.material === 'kraft') baseColor = '#b08a5f'; 
+                        else if (state.material === 'duplex') baseColor = '#e0e0e0';
 
-                        let baseMap = null;
-                        let baseColor = sideProps.color; // Default for ivory '#ffffff'
+                        let hasContent = sideProps.contentType !== 'none';
+                        let hasPattern = sideProps.patternType !== 'none';
 
-                        if (state.material === 'kraft') {
-                            baseColor = '#b08a5f'; // Kraft brown color
-                        } else if (state.material === 'duplex') {
-                            baseColor = '#e0e0e0'; // Duplex grey color
+                        if (hasContent || hasPattern) {
+                            outerMaterial.map = createSideTexture(sideIndex);
+                            outerMaterial.color.set(0xffffff); 
+                        } else {
+                            outerMaterial.map = null;
+                            outerMaterial.color.set(baseColor);
                         }
                         
-                        let contentTexture = null;
-                        if (sideProps.contentType === 'logo') {
-                            contentTexture = textures.logo.clone();
-                            contentTexture.needsUpdate = true;
-                            contentTexture.repeat.set(1 / sideProps.logoScale, 1 / sideProps.logoScale);
-                            contentTexture.offset.set(((1 - (1/sideProps.logoScale)) / 2) - (sideProps.offsetX/100), ((1 - (1/sideProps.logoScale)) / 2) + (sideProps.offsetY/100));
-                        } else if (sideProps.contentType === 'text') {
-                            contentTexture = createTextTexture(sideIndex);
+                        if (state.foodGradeLining) {
+                            innerMaterial.color.set('#f0f0f0'); 
+                            innerMaterial.roughness = 0.2;
+                            innerMaterial.metalness = 0.1;
+                        } else {
+                            innerMaterial.color.set(state.material === 'kraft' ? '#b08a5f' : '#ffffff');
+                            innerMaterial.roughness = 0.8;
+                            innerMaterial.metalness = 0;
                         }
 
-                        material.map = contentTexture; // Set map (null if no content)
-                        material.color.set(contentTexture ? 0xffffff : baseColor); // Use baseColor if no map, otherwise tint map with white
+                        outerMaterial.bumpMap = null; outerMaterial.bumpScale = 0.01; outerMaterial.metalness = 0;
+                        outerMaterial.envMapIntensity = envMapIntensity;
                         
-                        if(part.children.length > 0 && part.children[0].material) {
-                            part.children[0].visible = state.foodGradeLining;
-                            part.children[0].material.needsUpdate = true;
-                        }
-
-                        material.bumpMap = null; material.bumpScale = 0.01; material.metalness = 0;
-                        material.envMapIntensity = envMapIntensity;
-                        
-                        if(sideProps.contentType !== 'none' && (sideProps.premiumFinish === 'emboss' || sideProps.premiumFinish === 'deboss')){
-                            material.bumpMap = (sideProps.contentType === 'logo') ? textures.logo : createTextTexture(sideIndex, true);
-                            material.bumpScale = sideProps.premiumFinish === 'emboss' ? 0.015 : -0.015;
+                        if(hasContent && (sideProps.premiumFinish === 'emboss' || sideProps.premiumFinish === 'deboss')){
+                            outerMaterial.bumpMap = createSideTexture(sideIndex, true);
+                            outerMaterial.bumpScale = sideProps.premiumFinish === 'emboss' ? 0.015 : -0.015;
                         } else if (sideProps.premiumFinish.startsWith('foil')){
-                            material.metalness = 1.0;
-                            material.roughness = 0.15;
-                            material.color.set(sideProps.premiumFinish === 'foilEmas' ? '#FFD700' : '#C0C0C0');
-                            material.map = null; // Foil overrides other textures
+                            outerMaterial.metalness = 1.0;
+                            outerMaterial.roughness = 0.15;
+                            outerMaterial.color.set(sideProps.premiumFinish === 'foilEmas' ? '#FFD700' : '#C0C0C0');
+                            outerMaterial.map = null; 
                         }
                         
                         if(!sideProps.premiumFinish.startsWith('foil')) {
-                            material.roughness = roughness;
+                            outerMaterial.roughness = roughness;
                         }
                         
-                        material.needsUpdate = true;
+                        outerMaterial.needsUpdate = true;
+                        innerMaterial.needsUpdate = true;
                     });
                 }
                 
                 function animateBox(open = true) {
-                    const targetRotation = open ? -Math.PI * (5/6) : 0;
-                    const initialRotation = lidPivot.rotation.x;
-                    animateValue(initialRotation, targetRotation, 1200, (val) => { lidPivot.rotation.x = val; });
+                    const targetPivotRot = open ? -Math.PI * 0.6 : 0;
+                    animateValue(lidPivot.rotation.x, targetPivotRot, 1200, (val) => { lidPivot.rotation.x = val; });
                 }
 
                 function animateValue(start, end, duration, updateCallback) {
@@ -1353,17 +1720,7 @@
                         if (!startTime) startTime = timestamp;
                         const progress = Math.min((timestamp - startTime) / duration, 1);
                         const easedProgress = 0.5 * (1 - Math.cos(progress * Math.PI));
-                        
-                        let currentValue;
-                        if (start instanceof THREE.Vector3) {
-                            currentValue = new THREE.Vector3().lerpVectors(start, end, easedProgress);
-                        } else if (start instanceof THREE.Quaternion) {
-                            currentValue = new THREE.Quaternion().slerpQuaternions(start, end, easedProgress);
-                        } else {
-                            currentValue = start + (end - start) * easedProgress;
-                        }
-                        
-                        updateCallback(currentValue);
+                        updateCallback(start + (end - start) * easedProgress);
                         if (progress < 1) requestAnimationFrame(step);
                     }
                     requestAnimationFrame(step);
@@ -1393,7 +1750,6 @@
                             state[propName] = value;
                             
                             if (e.target.id === 'materialSelect') {
-                                // Update colors for all sides if material changes
                                 const newColor = (value === 'ivory') ? '#ffffff' : (value === 'kraft' ? '#b08a5f' : '#e0e0e0');
                                 state.sideProperties.forEach(prop => prop.color = newColor);
                                 updateUIFromState();
@@ -1411,10 +1767,8 @@
                         ui.lightIntensityValue.textContent = Math.round(state.lightIntensity / 2.5 * 100); 
                     });
                     
-                    // Added manual selection logic
                     ui.contentSideSelect.addEventListener('change', (e) => {
                         const sideIndex = parseInt(e.target.value);
-                        // Highlight the side in 3D when selected from dropdown
                         const partName = sideNames[sideIndex];
                         const part = boxParts.find(p => p.name === partName);
                         if (part) {
@@ -1427,6 +1781,16 @@
                     ui.sideColorPicker.addEventListener('input', e => { if(state.material === 'ivory'){ state.sideProperties[parseInt(ui.contentSideSelect.value)].color = e.target.value; updateAppearance(); } });
                     ui.contentTypeRadios.forEach(radio => radio.addEventListener('change', e => { state.sideProperties[parseInt(ui.contentSideSelect.value)].contentType = e.target.value; updateUIFromState(); updateAppearance(); }));
                     
+                    // Pattern listeners
+                    ui.patternSelect.addEventListener('change', e => {
+                        state.sideProperties[parseInt(ui.contentSideSelect.value)].patternType = e.target.value;
+                        updateAppearance();
+                    });
+                    ui.patternColorPicker.addEventListener('input', e => {
+                        state.sideProperties[parseInt(ui.contentSideSelect.value)].patternColor = e.target.value;
+                        updateAppearance();
+                    });
+
                     ['logoScaleSlider', 'contentOffsetX', 'contentOffsetY', 'premiumFinishSelect'].forEach(id => {
                         const eventType = id.includes('Select') ? 'change' : 'input';
                         ui[id].addEventListener(eventType, e => { 
@@ -1438,7 +1802,21 @@
                             updateUIFromState(); updateAppearance(); 
                         });
                     });
-                    ui.logoUpload.addEventListener('change', e => { if(e.target.files[0]) { const reader = new FileReader(); reader.onload = res => { textures.logo.dispose(); textures.logo = new THREE.TextureLoader().load(res.target.result, updateAppearance); }; reader.readAsDataURL(e.target.files[0]); } });
+                    
+                    ui.logoUpload.addEventListener('change', e => { 
+                        if(e.target.files[0]) { 
+                            const reader = new FileReader(); 
+                            reader.onload = res => { 
+                                const img = new Image();
+                                img.src = res.target.result;
+                                img.onload = () => {
+                                    logoImage = img;
+                                    updateAppearance();
+                                };
+                            }; 
+                            reader.readAsDataURL(e.target.files[0]); 
+                        } 
+                    });
                     
                     ['textInput', 'fontSelect', 'fontSizeSlider', 'textColorPicker'].forEach(id => {
                         const eventType = (id === 'textInput' || id.includes('Slider')) ? 'input' : 'change';
@@ -1455,11 +1833,24 @@
                     let boxOpen = false; ui.animateBoxBtn.addEventListener('click', () => { boxOpen = !boxOpen; animateBox(boxOpen); });
                     
                     ui.captureButton.addEventListener('click', captureScreenshot);
-                    ui.saveButton.addEventListener('click', saveState);
+                    
+                    // Confetti Effects & Toast for Save
+                    ui.saveButton.addEventListener('click', () => {
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                        saveState();
+                        showToast('Desain Anda berhasil disimpan di browser!', 'success');
+                    });
+                    
                     ui.resetButton.addEventListener('click', resetState);
                     ui.loadYesBtn.addEventListener('click', () => { loadState(JSON.parse(localStorage.getItem('arjunaMockupDesign'))); ui.loadModal.classList.add('opacity-0', 'hidden'); });
                     ui.loadNoBtn.addEventListener('click', () => ui.loadModal.classList.add('opacity-0', 'hidden'));
-                    ui.quoteButton.addEventListener('click', () => { ui.quoteModal.classList.remove('hidden'); setTimeout(() => ui.quoteModal.classList.remove('opacity-0'), 10); });
+                    
+                    ui.quoteButton.addEventListener('click', () => { 
+                        confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 }, colors: ['#22c55e', '#ffffff'] }); 
+                        ui.quoteModal.classList.remove('hidden'); 
+                        setTimeout(() => ui.quoteModal.classList.remove('opacity-0'), 10); 
+                    });
+                    
                     ui.quoteCloseBtn.addEventListener('click', () => ui.quoteModal.classList.add('opacity-0', 'hidden'));
                     ui.quoteForm.addEventListener('submit', handleQuoteSubmit);
                     
@@ -1551,10 +1942,14 @@
 
                     const sideProps = state.sideProperties[parseInt(ui.contentSideSelect.value)];
                     ui.sideColorPicker.value = sideProps.color;
-                    ui.sideColorPicker.disabled = state.material !== 'ivory'; // Disable color picker if not ivory
+                    ui.sideColorPicker.disabled = state.material !== 'ivory'; 
 
                     document.querySelector(`input[name="content-type"][value="${sideProps.contentType}"]`).checked = true;
                     
+                    // Update Pattern Inputs
+                    ui.patternSelect.value = sideProps.patternType || 'none';
+                    ui.patternColorPicker.value = sideProps.patternColor || '#e0e0e0';
+
                     const showContentControls = ui.contentSideSelect.value !== '' && sideNames.includes(sideNames[parseInt(ui.contentSideSelect.value)] );
                     ui.contentControls.classList.toggle('hidden', !showContentControls);
                     if(showContentControls){
@@ -1569,12 +1964,12 @@
                     }
                 }
 
-                function saveState() { localStorage.setItem('arjunaMockupDesign', JSON.stringify(state)); alert('Desain Anda telah disimpan di browser ini!'); }
+                function saveState() { localStorage.setItem('arjunaMockupDesign', JSON.stringify(state)); }
                 function loadState(saved) { state = saved; updateUIFromState(); updateBoxModel(); }
                 function checkForSavedState() { if (localStorage.getItem('arjunaMockupDesign')) { ui.loadModal.classList.remove('hidden'); setTimeout(() => ui.loadModal.classList.remove('opacity-0'), 10); } }
                 function resetState() { if(confirm("Yakin ingin mereset semua kustomisasi?")){ localStorage.removeItem('arjunaMockupDesign'); selectedPart = null; outlinePass.selectedObjects = []; state = JSON.parse(JSON.stringify(defaultState)); ui.contentSideSelect.value = 0; updateUIFromState(); updateBoxModel(); } }
                 
-                // --- Gemini AI Functions ---
+                // --- Gemini AI Functions (Code Removed) ---
                 const geminiModal = document.getElementById('gemini-modal');
                 const geminiCloseBtn = document.getElementById('gemini-close-btn');
                 const geminiTaglineBtn = document.getElementById('gemini-tagline-btn');
@@ -1586,48 +1981,52 @@
                 const geminiResultsList = document.getElementById('gemini-results-list');
                 const geminiBackBtn = document.getElementById('gemini-back-btn');
 
-                geminiTaglineBtn.addEventListener('click', () => {
-                    geminiModal.classList.remove('hidden');
-                    setTimeout(() => geminiModal.classList.remove('opacity-0'), 10);
-                });
+                if (geminiTaglineBtn) {
+                    geminiTaglineBtn.addEventListener('click', () => {
+                        geminiModal.classList.remove('hidden');
+                        setTimeout(() => geminiModal.classList.remove('opacity-0'), 10);
+                    });
+                }
                 
                 const closeGeminiModal = () => {
                     geminiModal.classList.add('opacity-0');
                     setTimeout(() => {
                         geminiModal.classList.add('hidden');
-                        geminiPromptView.classList.remove('hidden');
-                        geminiResultsView.classList.add('hidden');
-                        geminiResultsList.innerHTML = '';
+                        if(geminiPromptView) geminiPromptView.classList.remove('hidden');
+                        if(geminiResultsView) geminiResultsView.classList.add('hidden');
+                        if(geminiResultsList) geminiResultsList.innerHTML = '';
                     }, 300);
                 }
-                geminiCloseBtn.addEventListener('click', closeGeminiModal);
-                geminiBackBtn.addEventListener('click', () => {
+                if(geminiCloseBtn) geminiCloseBtn.addEventListener('click', closeGeminiModal);
+                if(geminiBackBtn) geminiBackBtn.addEventListener('click', () => {
                      geminiPromptView.classList.remove('hidden');
                      geminiResultsView.classList.add('hidden');
                      geminiResultsList.innerHTML = '';
                 });
 
-                geminiForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const productType = geminiProductType.value;
-                    if (!productType) return;
+                if(geminiForm) {
+                    geminiForm.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const productType = geminiProductType.value;
+                        if (!productType) return;
 
-                    geminiPromptView.classList.add('hidden');
-                    geminiResultsView.classList.remove('hidden');
-                    geminiLoading.classList.remove('hidden');
-                    geminiResultsList.innerHTML = '';
+                        geminiPromptView.classList.add('hidden');
+                        geminiResultsView.classList.remove('hidden');
+                        geminiLoading.classList.remove('hidden');
+                        geminiResultsList.innerHTML = '';
 
-                    const userQuery = `Buatkan 5 ide tagline yang singkat dan menarik untuk kemasan produk "${productType}".`;
-                    const systemPrompt = `Anda adalah seorang ahli branding yang kreatif, spesialisasinya adalah membuat tagline pendek (3-5 kata) untuk kemasan produk UMKM. Berikan 5 ide.`;
-                    
-                    try {
-                        const response = await callGeminiAPI(userQuery, systemPrompt);
-                        displayGeminiResults(response.text);
-                    } catch (error) {
-                        console.error('Error calling Gemini API:', error);
-                        displayGeminiResults("Maaf, terjadi kesalahan saat mengambil ide tagline. Coba lagi nanti.");
-                    }
-                });
+                        const userQuery = `Buatkan 5 ide tagline yang singkat dan menarik untuk kemasan produk "${productType}".`;
+                        const systemPrompt = `Anda adalah seorang ahli branding yang kreatif, spesialisasinya adalah membuat tagline pendek (3-5 kata) untuk kemasan produk UMKM. Berikan 5 ide.`;
+                        
+                        try {
+                            const response = await callGeminiAPI(userQuery, systemPrompt);
+                            displayGeminiResults(response.text);
+                        } catch (error) {
+                            console.error('Error calling Gemini API:', error);
+                            displayGeminiResults("Maaf, terjadi kesalahan saat mengambil ide tagline. Coba lagi nanti.");
+                        }
+                    });
+                }
                 
                 function displayGeminiResults(text) {
                     geminiLoading.classList.add('hidden');
